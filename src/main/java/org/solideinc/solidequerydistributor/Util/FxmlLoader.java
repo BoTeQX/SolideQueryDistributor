@@ -2,10 +2,10 @@ package org.solideinc.solidequerydistributor.Util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 
 public class FxmlLoader {
-    public static void load(VBox rootLayout, String fxml) {
+    public static void load(Pane rootLayout, String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(FxmlLoader.class.getResource(fxml));
