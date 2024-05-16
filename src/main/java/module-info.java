@@ -9,8 +9,10 @@ module org.solideinc.solidequerydistributor {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires com.fasterxml.jackson.databind;
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
+    opens org.solideinc.clas to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
     opens org.solideinc.solidequerydistributor.Controllers to javafx.fxml;
