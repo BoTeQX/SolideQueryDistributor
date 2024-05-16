@@ -12,4 +12,6 @@ module org.solideinc.solidequerydistributor {
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
     exports org.solideinc.solidequerydistributor;
+    exports org.solideinc.solidequerydistributor.Controllers;
+    opens org.solideinc.solidequerydistributor.Controllers to javafx.fxml;
 }
