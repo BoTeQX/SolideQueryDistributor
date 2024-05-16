@@ -1,4 +1,4 @@
-package org.solideinc.solidequerydistributor;
+package org.solideinc.solidequerydistributor.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
