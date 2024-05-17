@@ -11,8 +11,10 @@ module org.solideinc.solidequerydistributor {
     requires eu.hansolo.tilesfx;
     requires ollama4j;
     requires org.slf4j;
+    requires com.fasterxml.jackson.databind;
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
+    opens org.solideinc.clas to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
     opens org.solideinc.solidequerydistributor.Controllers to javafx.fxml;
