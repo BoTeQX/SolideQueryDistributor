@@ -1,5 +1,6 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.solideinc.solidequerydistributor.Classes.User;
 
 import java.util.ArrayList;
@@ -28,8 +29,11 @@ public class UserController {
 
     public static boolean checkUser(String username, String password) {
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return true;
+            if (user.getUsername().equals(username)) {
+                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
+                if (result.verified) {
+                    return true;
+                }
             }
         }
         return false;

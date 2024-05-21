@@ -9,7 +9,7 @@ import org.solideinc.solidequerydistributor.Utils.LamaAPI;
 
 import java.io.IOException;
 
-public class    Main extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -21,10 +21,6 @@ public class    Main extends Application {
         stage.show();
         stage.setResizable(false);
         stage.getIcons().add(new Image("/logo.png"));
-
-
-
-
     }
 
     public static void main(String[] args) {
