@@ -12,9 +12,9 @@ module org.solideinc.solidequerydistributor {
     requires ollama4j;
     requires org.slf4j;
     requires com.fasterxml.jackson.databind;
+    requires bcrypt;
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
-    opens org.solideinc.clas to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
     exports org.solideinc.solidequerydistributor.Classes;
