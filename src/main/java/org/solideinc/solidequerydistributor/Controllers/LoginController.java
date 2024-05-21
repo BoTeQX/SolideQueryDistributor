@@ -24,8 +24,8 @@ public class LoginController {
 
     @FXML
     private void initialize() {
-        UserController.createUser("test@test.nl", "test", "test", "nl");
-        loginButton.setOnAction(event -> login());
+        //UserController.createUser("test@test.nl", "test", "test", "nl");
+        //loginButton.setOnAction(event -> login());
     }
 
     private String getUsername() {

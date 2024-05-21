@@ -9,11 +9,10 @@ import org.solideinc.solidequerydistributor.Utils.LamaAPI;
 
 import java.io.IOException;
 
-public class    Main extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("Solide™ Query Distributor - Login");
@@ -21,10 +20,6 @@ public class    Main extends Application {
         stage.show();
         stage.setResizable(false);
         stage.getIcons().add(new Image("/logo.png"));
-
-
-
-
     }
 
     public static void main(String[] args) {
