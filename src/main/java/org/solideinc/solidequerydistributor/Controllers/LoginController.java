@@ -1,6 +1,7 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -24,8 +25,10 @@ public class LoginController {
 
     @FXML
     private void initialize() {
-        //UserController.createUser("test@test.nl", "test", "test", "nl");
-        //loginButton.setOnAction(event -> login());
+        String password = "test";
+        String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        UserController.createUser("test@test.nl", "test", hashedPassword, "nl");
+        loginButton.setOnAction(event -> login());
     }
 
     private String getUsername() {
@@ -70,7 +73,7 @@ public class LoginController {
         boolean isPasswordEmpty = checkPasswordField(password);
 
         if (isUsernameEmpty || isPasswordEmpty) {
-            createAlertDialog("Please fill in all fields");
+            createAlertDialog("Vul alstublieft alle velden in");
             return true;
         }
 
@@ -81,7 +84,7 @@ public class LoginController {
         if (UserController.checkUser(username, password)) {
             redirectUser();
         } else {
-            createAlertDialog("Invalid username or password");
+            createAlertDialog("ongeldige gebruikersnaam of wachtwoord");
             clearFields();
         }
     }
@@ -102,7 +105,7 @@ public class LoginController {
 
     private void createAlertDialog(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Login Error");
+        alert.setTitle("Login fout");
         alert.setHeaderText(content);
         alert.setContentText(null);
         alert.showAndWait();
