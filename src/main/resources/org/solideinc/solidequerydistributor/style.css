@@ -1,0 +1,22 @@
+#loginButton {
+    -fx-background-color: black;
+    -fx-padding: 10px;
+    -fx-border-color: White;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-text-fill: WHITE;
+    -fx-cursor: hand;
+}
+
+#loginButton:hover {
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-background-color: WHITE;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+
+.text-field-error {
+    -fx-border-color: red;
+    -fx-border-width: 3px;
+}

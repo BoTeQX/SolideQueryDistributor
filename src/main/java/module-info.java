@@ -17,6 +17,7 @@ module org.solideinc.solidequerydistributor {
     opens org.solideinc.clas to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
+    exports org.solideinc.solidequerydistributor.Classes;
     opens org.solideinc.solidequerydistributor.Controllers to javafx.fxml;
     exports org.solideinc.solidequerydistributor.Utils;
     opens org.solideinc.solidequerydistributor.Utils to javafx.fxml;
