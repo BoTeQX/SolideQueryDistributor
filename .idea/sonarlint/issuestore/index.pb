@@ -13,3 +13,5 @@ t
 Dsrc/main/java/org/solideinc/solidequerydistributor/Classes/User.java,4\6\4600bc2b870ccb817520c6ecd156698e5653064a
 w
 Gsrc/main/java/org/solideinc/solidequerydistributor/Util/FxmlLoader.java,a\8\a82a62c600552d90a2714e37c401472de4a2ca7e
+‚
+Rsrc/main/java/org/solideinc/solidequerydistributor/Controllers/MainController.java,6\5\6510b28baecbeae9d000e3216c685389bfebbe6b
