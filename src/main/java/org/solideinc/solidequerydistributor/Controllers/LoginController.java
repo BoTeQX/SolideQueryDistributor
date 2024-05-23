@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
+import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 import java.io.IOException;
 
@@ -98,18 +99,7 @@ public class LoginController {
     }
 
     private void redirectUser() {
-        try {
-            Stage stage = (Stage) RootLayout.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Solide™ Query Distributor - Main");
-            stage.setScene(scene);
-            stage.show();
-            stage.setResizable(false);
-            stage.getIcons().add(new Image("/logo.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PageLoader.loadMainPage();
     }
 
     private void login() {
