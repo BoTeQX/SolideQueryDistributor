@@ -1,9 +1,17 @@
 
-w
-Gsrc/main/java/org/solideinc/solidequerydistributor/HelloController.java,4\9\49931ea7846c6521aed31b18d0f6a76be6fbfd40
-x
-Hsrc/main/java/org/solideinc/solidequerydistributor/HelloApplication.java,0\b\0b6b2e10d40a235d22bff5a102484c666a3ee467
-w
-Gsrc/main/resources/org/solideinc/solidequerydistributor/hello-view.fxml,8\9\89a1004fa0d98b86dfca336ab1aa4196ddb7db0b
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+ƒ
+Ssrc/main/java/org/solideinc/solidequerydistributor/Controllers/LoginController.java,c\6\c6a8660187438718f90ff5e23813dfb7e3929283
+‚
+Rsrc/main/java/org/solideinc/solidequerydistributor/Controllers/UserController.java,5\e\5eeca207fbe4006c27cb999bcc23db520e97f5f2
+l
+<src/main/java/org/solideinc/solidequerydistributor/Main.java,3\b\3bdf2e731897126300fb64d42250c3e209957988
+x
+Hsrc/main/java/org/solideinc/solidequerydistributor/Util/JsonHandler.java,6\7\67da7d0412977c1eb560def466533cf303c8b04c
+t
+Dsrc/main/java/org/solideinc/solidequerydistributor/Classes/User.java,4\6\4600bc2b870ccb817520c6ecd156698e5653064a
+w
+Gsrc/main/java/org/solideinc/solidequerydistributor/Util/FxmlLoader.java,a\8\a82a62c600552d90a2714e37c401472de4a2ca7e
+‚
+Rsrc/main/java/org/solideinc/solidequerydistributor/Controllers/MainController.java,6\5\6510b28baecbeae9d000e3216c685389bfebbe6b

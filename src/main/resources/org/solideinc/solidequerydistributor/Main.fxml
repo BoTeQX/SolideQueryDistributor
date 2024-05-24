@@ -6,9 +6,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="RootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.LoginController">
+<Pane fx:id="RootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.MainController">
     <children>
-        <Pane prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
+        <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
             <children>
                 <Label focusTraversable="false" layoutX="59.0" layoutY="31.0" prefHeight="13.0" prefWidth="168.0" text="Solide™ Query Distributor" textAlignment="CENTER">
                     <font>
@@ -24,12 +24,53 @@
                         <Image url="@/logo.png" />
                     </image>
                 </ImageView>
+                <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" style="-fx-background-color: transparent;" styleClass="accountPageButton">
+                    <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="accountPageButton">
+                            <image>
+                                <Image url="@../../../pfpic.jpg" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="logoutButton" layoutX="205.0" layoutY="537.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="44.0" style="-fx-background-color: transparent;" styleClass="logoutButton">
+               <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" styleClass="logoutButton">
+                            <image>
+                                <Image url="@../../../settings.png" />
+                            </image>
+                        </ImageView>
+               </graphic>
+                </Button>
 
             </children>
         </Pane>
-        <Pane layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: black;">
-         <children>
-            <Circle fill="DODGERBLUE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
-         </children></Pane>
+        <Pane fx:id="mainContent" layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: black;">
+            <children>
+                <Circle fx:id="sendCircle" fill="WHITE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" styleClass="sendPromptButton" />
+                <Button fx:id="sendButton" layoutX="562.0" layoutY="527.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="59.0" style="-fx-background-radius: 100; -fx-background-color: transparent;" styleClass="sendPromptButton" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" styleClass="sendPromptButton">
+                            <image>
+                                <Image url="@../../../chat.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <TextArea fx:id="chatField" layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextArea>
+            <ScrollPane fx:id="chatPane" layoutX="31.0" layoutY="36.0" prefHeight="479.0" prefWidth="578.0">
+               <content>
+                  <VBox fx:id="chatBox" prefHeight="476.0" prefWidth="566.0" />
+               </content>
+            </ScrollPane>
+            </children></Pane>
+        <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@style.css" text="&lt;">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
     </children>
 </Pane>
