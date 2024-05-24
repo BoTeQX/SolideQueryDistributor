@@ -30,12 +30,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
-
-public class MainController {
-    @FXML
-    private Pane RootLayout;
-    @FXML
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
@@ -53,28 +47,16 @@ public class MainController {
     private Button sendButton;
     @FXML
     private ScrollPane chatPane;
-
-    private boolean waitingForResponse = false;
-
-
-
     @FXML
     private Pane sidebar;
-
     @FXML
     private Pane mainContent;
-
     @FXML
     private Button toggleButton;
-
-    @FXML
-    private TextArea text;
-
     @FXML
     private Circle sendCircle;
+    private boolean waitingForResponse = false;
 
-    @FXML
-    private Button sendButton;
 
     private boolean isSidebarVisible = true;
 
@@ -162,7 +144,7 @@ public class MainController {
         sidebar.setPrefWidth(15);
         mainContent.setLayoutX(15);
         mainContent.setPrefWidth(900);
-        text.setPrefWidth(770);
+        chatField.setPrefWidth(770);
         sendButton.setLayoutX(820);
         sendCircle.setLayoutX(850);
         toggleButton.setText(">");
@@ -173,7 +155,7 @@ public class MainController {
         sidebar.setPrefWidth(260);
         mainContent.setPrefWidth(640);
         mainContent.setLayoutX(260);
-        text.setPrefWidth(518);
+        chatField.setPrefWidth(518);
         sendButton.setLayoutX(562);
         sendCircle.setLayoutX(591);
         toggleButton.setText("<");

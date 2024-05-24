@@ -7,7 +7,7 @@ public class SolideAPI {
     private static final Map<String, String> promptResponses = new HashMap<>();
 
     static {
-        promptResponses.put("bestand", "Bestand test");
+        promptResponses.put("bestand", "Hier is je bestand: ....");
         promptResponses.put("test", "tesxtdasd");
     }
 
