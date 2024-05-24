@@ -1,0 +1,19 @@
+[ {
+  "id" : "b0eacb19-74f9-4868-8cf1-89e300f0c50e",
+  "email" : "admin@admin.nl",
+  "username" : "admin",
+  "password" : "$2a$12$AFt0PAISY8FKguQSqFQwkOsYTW.6qSuvdqVTww0SZveIKqygh4IPe",
+  "languagePreference" : "nl"
+}, {
+  "id" : "3cd711cc-6ee2-41d1-89ea-3843200afaba",
+  "email" : "admin@admin.nl",
+  "username" : "admin",
+  "password" : "$2a$12$yIwUAZHKtFkwyOLrB81oWuJRMaiykyeMBqhD96FTvTavi6S3FRXGy",
+  "languagePreference" : "nl"
+}, {
+  "id" : "4c56c1d0-5938-4dcb-9589-aa348d61e749",
+  "email" : "admin@admin.nl",
+  "username" : "admin",
+  "password" : "$2a$12$URxN/junGPkoltBxB0TMC.aTIUw9A6nZo/Twss2PclGuyjAb639EW",
+  "languagePreference" : "nl"
+} ]
