@@ -33,6 +33,12 @@ public class MainController {
     @FXML
     private Pane RootLayout;
     @FXML
+
+import javafx.scene.control.Button;
+import org.solideinc.solidequerydistributor.Util.PageLoader;
+
+public class MainController {
+    @FXML
     private Button logoutButton;
     @FXML
     private VBox chatBox;
@@ -113,23 +119,6 @@ public class MainController {
     }
 
     private void logout(){
-        try {
-            Stage stage = (Stage) RootLayout.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-
-            URL styleSheetUrl = getClass().getResource("/org/solideinc/solidequerydistributor/style.css");
-            if (styleSheetUrl != null) {
-                scene.getStylesheets().add(styleSheetUrl.toExternalForm());
-            }
-
-            stage.setScene(scene);
-            stage.show();
-            stage.setResizable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PageLoader.loadLoginPage();
     }
-
-
 }

@@ -24,18 +24,18 @@
                         <Image url="@/logo.png" />
                     </image>
                 </ImageView>
-                <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" style="-fx-background-color: transparent;">
+                <Button styleClass="accountPageButton" layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" style="-fx-background-color: transparent;">
                     <graphic>
-                        <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView styleClass="accountPageButton" fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../pfpic.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button id="logoutButton" fx:id="logoutButton" layoutX="205.0" layoutY="537.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="44.0" style="-fx-background-color: transparent;">
+                <Button styleClass="logoutButton" fx:id="logoutButton" layoutX="205.0" layoutY="537.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="44.0" style="-fx-background-color: transparent;">
                <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView styleClass="logoutButton" fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../settings.png" />
                             </image>
