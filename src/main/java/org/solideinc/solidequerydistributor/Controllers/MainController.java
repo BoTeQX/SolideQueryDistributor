@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
+import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +60,12 @@ public class MainController {
             return;
 
         addMessage(text, false);
+        String fakeText = SolideAPI.sendPrompt(text);
+        if (fakeText != null) {
+            addMessage(fakeText, true);
+            return;
+        }
+
         chatField.setText("Waiting for Response");
         chatField.setDisable(true);
         CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
