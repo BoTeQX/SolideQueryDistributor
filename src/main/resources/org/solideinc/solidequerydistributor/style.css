@@ -41,7 +41,7 @@
 
 #toggleButton {
     -fx-background-color: white;
-    -fx-background-radius: 20%;
+    -fx-background-radius: 30%;
 }
 
 #toggleButton:hover {
