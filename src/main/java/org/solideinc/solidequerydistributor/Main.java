@@ -1,14 +1,10 @@
 package org.solideinc.solidequerydistributor;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.solideinc.solidequerydistributor.Controllers.LoginController;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
-import org.solideinc.solidequerydistributor.Utils.LamaAPI;
+import org.solideinc.solidequerydistributor.Util.LamaAPI;
 
 import java.io.IOException;
 

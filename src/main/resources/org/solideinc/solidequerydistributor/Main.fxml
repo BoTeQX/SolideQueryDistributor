@@ -47,21 +47,26 @@
         </Pane>
         <Pane layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: black;">
             <children>
-                <Circle fx:id="sendPromptButton" id="sendPromptButton" styleClass="sendPromptButton" fill="WHITE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
-                <Button styleClass="sendPromptButton" layoutX="562.0" layoutY="527.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="59.0" style="-fx-background-radius: 100; -fx-background-color: transparent;" textFill="WHITE">
+                <Circle fill="WHITE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                <Button fx:id="sendButton" layoutX="562.0" layoutY="527.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="59.0" style="-fx-background-radius: 100; -fx-background-color: transparent;" textFill="WHITE">
                     <graphic>
-                        <ImageView styleClass="sendPromptButton" fitHeight="33.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView disable="true" fitHeight="33.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../chat.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-            <TextArea layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
+            <TextArea fx:id="chatField" layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
             </TextArea>
+            <ScrollPane fx:id="chatPane" layoutX="36.0" layoutY="125.0" prefHeight="397.0" prefWidth="579.0">
+               <content>
+                  <VBox fx:id="chatBox" prefHeight="396.0" prefWidth="564.0" />
+               </content>
+            </ScrollPane>
             </children></Pane>
     </children>
 </Pane>
