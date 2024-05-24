@@ -46,24 +46,32 @@ public class MainController {
 
     private void handleToggleAction(ActionEvent event) {
         if (isSidebarVisible) {
-            sidebar.setPrefWidth(15);
-            mainContent.setLayoutX(15);
-            mainContent.setPrefWidth(900);
-            text.setPrefWidth(770);
-            sendButton.setLayoutX(820);
-            sendCircle.setLayoutX(850);
-            toggleButton.setText(">");
-            toggleButton.setLayoutX(0);
+            hideSidebar();
         } else {
-            sidebar.setPrefWidth(260);
-            mainContent.setPrefWidth(640);
-            mainContent.setLayoutX(260);
-            text.setPrefWidth(518);
-            sendButton.setLayoutX(562);
-            sendCircle.setLayoutX(591);
-            toggleButton.setText("<");
-            toggleButton.setLayoutX(205);
+            showSidebar();
         }
         isSidebarVisible = !isSidebarVisible;
+    }
+
+    private void hideSidebar(){
+        sidebar.setPrefWidth(15);
+        mainContent.setLayoutX(15);
+        mainContent.setPrefWidth(900);
+        text.setPrefWidth(770);
+        sendButton.setLayoutX(820);
+        sendCircle.setLayoutX(850);
+        toggleButton.setText(">");
+        toggleButton.setLayoutX(0);
+    }
+
+    private void showSidebar(){
+        sidebar.setPrefWidth(260);
+        mainContent.setPrefWidth(640);
+        mainContent.setLayoutX(260);
+        text.setPrefWidth(518);
+        sendButton.setLayoutX(562);
+        sendCircle.setLayoutX(591);
+        toggleButton.setText("<");
+        toggleButton.setLayoutX(205);
     }
 }
