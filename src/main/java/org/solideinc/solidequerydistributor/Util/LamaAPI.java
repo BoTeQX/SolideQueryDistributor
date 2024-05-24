@@ -1,4 +1,4 @@
-package org.solideinc.solidequerydistributor.Utils;
+package org.solideinc.solidequerydistributor.Util;
 
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
 import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
@@ -14,7 +14,7 @@ public class LamaAPI {
     public static void connectToHost() {
         ollamaAPI = new OllamaAPI(host);
         ollamaAPI.setVerbose(true);
-        ollamaAPI.setRequestTimeoutSeconds(120);
+        ollamaAPI.setRequestTimeoutSeconds(999);
     }
 
     public static boolean isConnected() {

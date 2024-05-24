@@ -60,11 +60,16 @@
                         </ImageView>
                     </graphic>
                 </Button>
-            <TextArea fx:id="text" layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
+            <TextArea fx:id="chatField" layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
             </TextArea>
+            <ScrollPane fx:id="chatPane" layoutX="36.0" layoutY="125.0" prefHeight="397.0" prefWidth="579.0">
+               <content>
+                  <VBox fx:id="chatBox" prefHeight="396.0" prefWidth="564.0" />
+               </content>
+            </ScrollPane>
             </children></Pane>
         <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@style.css" text="&lt;">
          <font>

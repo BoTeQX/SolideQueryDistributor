@@ -38,8 +38,8 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Button>
-                <PasswordField fx:id="loginPasswordPasswordField" alignment="CENTER" layoutX="231.0" layoutY="337.0" prefHeight="37.0" prefWidth="182.0" promptText="Wachtwoord" style="-fx-background-color: white; -fx-padding: 10px;" />
                 <TextField id="loginUsernameTextField" fx:id="loginUsernameTextField" alignment="CENTER" layoutX="231.0" layoutY="262.0" prefHeight="37.0" prefWidth="182.0" promptText="Gebruikersnaam" style="-fx-padding: 10px;" />
+                <PasswordField fx:id="loginPasswordPasswordField" alignment="CENTER" layoutX="231.0" layoutY="337.0" prefHeight="37.0" prefWidth="182.0" promptText="Wachtwoord" style="-fx-background-color: white; -fx-padding: 10px;" />
             </children></Pane>
     </children>
 </Pane>
