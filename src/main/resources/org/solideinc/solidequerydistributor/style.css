@@ -51,3 +51,32 @@
 
 }
 
+.chatField .content{
+    -fx-background-color: #484545 ;
+    -fx-background-radius: 15px;
+    -fx-text-fill: white;
+
+}
+
+.chatField {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-background: black;
+    -fx-text-fill: white;
+
+}
+
+.chatField:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-vbar-policy: never;
+}
+
+.chatField .scroll-pane {
+    -fx-vbar-policy: never;
+}
+
+.chatPane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
