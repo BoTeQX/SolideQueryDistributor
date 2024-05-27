@@ -42,6 +42,7 @@ public class MainController {
     private boolean isSidebarVisible = true;
 
 
+
     @FXML
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
@@ -63,12 +64,19 @@ public class MainController {
             return;
         }
 
-        chatField.setText("Waiting for Response");
-        chatField.setDisable(true);
-        CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
-            Platform.runLater(() -> addMessage(response, true));
-        });
-        waitingForResponse = true;
+        if (LamaAPI.isConnected()) {
+            chatField.setText("Wachten op reactie...");
+            chatField.setDisable(true);
+            CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
+                Platform.runLater(() -> addMessage(response, true));
+            });
+            waitingForResponse = true;
+        }else {
+            if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
+                addMessage("De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true);
+            else
+                addMessage("The Solide™ Assistant is currently offline, please try again later", true);
+        }
     }
 
     private void addMessage(String text, boolean answer) {
@@ -88,7 +96,6 @@ public class MainController {
         textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
 
         double textHeight = textNode.getLayoutBounds().getHeight();
-        System.out.println(textHeight);
         messageLabel.setPrefHeight(textHeight + 20);
         messageLabel.setMinHeight(textHeight + 20);
         messageLabel.setMaxHeight(textHeight + 20);

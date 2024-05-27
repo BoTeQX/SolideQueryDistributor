@@ -1,5 +1,8 @@
 package org.solideinc.solidequerydistributor.Classes;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class User {
@@ -13,7 +16,7 @@ public class User {
         return password;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -21,7 +24,7 @@ public class User {
         return languagePreference;
     }
 
-    private void setLanguagePreference(String languagePreference) {
+    public void setLanguagePreference(String languagePreference) {
         this.languagePreference = languagePreference;
     }
 
@@ -29,7 +32,7 @@ public class User {
         return username;
     }
 
-    private void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -37,7 +40,7 @@ public class User {
         return email;
     }
 
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -45,7 +48,7 @@ public class User {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -56,6 +59,20 @@ public class User {
         setPassword(password);
         setLanguagePreference(languagePreference);
     }
+
+    @JsonCreator
+    public User(@JsonProperty("id") String id,
+                @JsonProperty("email") String email,
+                @JsonProperty("username") String username,
+                @JsonProperty("password") String password,
+                @JsonProperty("languagePreference") String languagePreference) {
+        setId(UUID.fromString(id));
+        setEmail(email);
+        setUsername(username);
+        setPassword(password);
+        setLanguagePreference(languagePreference);
+    }
+
 
 
 }

@@ -18,6 +18,8 @@ import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 import java.io.IOException;
 
+import java.io.IOException;
+
 
 public class LoginController {
     @FXML
@@ -33,12 +35,18 @@ public class LoginController {
     private TextField loginPasswordPasswordField;
 
     @FXML
-    private void initialize() {
-        String password = "test";
-        String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        UserController.createUser("test@test.nl", "test", hashedPassword, "nl");
-        loginButton.setOnAction(event -> login());
+    private void initialize() throws IOException {
+        UserController.createUser("admin@admin.nl", "admin", "admin", "nl");
+        loginButton.setOnAction(event -> {
+            try {
+                login();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
+
+    public static User loggedInUser = null;
 
     private String getUsername() {
         return loginUsernameTextField.getText();
@@ -46,6 +54,14 @@ public class LoginController {
 
     private String getPassword() {
         return loginPasswordPasswordField.getText();
+    }
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(User user) {
+        loggedInUser = user;
     }
 
     private void clearFields() {
@@ -89,8 +105,9 @@ public class LoginController {
         return false;
     }
 
-    private void validateLoginCredentials (String username, String password) {
+    private void validateLoginCredentials (String username, String password) throws IOException {
         if (UserController.checkUser(username, password)) {
+            setLoggedInUser(UserController.getUser(username));
             redirectUser();
         } else {
             createAlertDialog("ongeldige gebruikersnaam of wachtwoord");
@@ -102,7 +119,7 @@ public class LoginController {
         PageLoader.loadMainPage();
     }
 
-    private void login() {
+    private void login() throws IOException {
         String username = getUsername();
         String password = getPassword();
 

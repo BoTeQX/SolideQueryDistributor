@@ -14,14 +14,20 @@ public class LamaAPI {
     public static void connectToHost() {
         ollamaAPI = new OllamaAPI(host);
         ollamaAPI.setVerbose(true);
-        ollamaAPI.setRequestTimeoutSeconds(999);
+        ollamaAPI.setRequestTimeoutSeconds(20);
     }
 
     public static boolean isConnected() {
-        if (ollamaAPI == null)
+        try {
+            if (ollamaAPI == null || !ollamaAPI.ping()) {
+                System.out.println("Not connected");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Not connected due to error: " + e.getMessage());
             return false;
-
-        return ollamaAPI.ping();
+        }
+        return true;
     }
 
     public static String sendPrompt(String prompt) {
