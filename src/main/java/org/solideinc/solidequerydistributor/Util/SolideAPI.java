@@ -26,6 +26,11 @@ public class SolideAPI {
         promptResponses.put("wat is je favoriete kleur", "Ik ben een computerprogramma, dus ik heb geen favoriete kleur. Hoe kan ik je helpen?");
         promptResponses.put("bedankt", "Graag gedaan! Hoe kan ik je helpen?");
         promptResponses.put("tot ziens", "Tot ziens! Als je nog vragen hebt, weet je me te vinden.");
+        promptResponses.put("goedemorgen", "Goedemorgen! Hoe kan ik je helpen?");
+        promptResponses.put("goedemiddag", "Goedemiddag! Hoe kan ik je helpen?");
+        promptResponses.put("goedenavond", "Goedenavond! Hoe kan ik je helpen?");
+        promptResponses.put("solide", "built different");
+
     }
 
     private static void setEnglishPrompts() {
@@ -38,6 +43,10 @@ public class SolideAPI {
         promptResponses.put("what is your favorite color", "I'm a computer program, so I don't have a favorite color. How can I help you?");
         promptResponses.put("thanks", "You're welcome! How can I help you?");
         promptResponses.put("goodbye", "Goodbye! If you have any more questions, you know where to find me.");
+        promptResponses.put("good morning", "Good morning! How can I help you?");
+        promptResponses.put("good afternoon", "Good afternoon! How can I help you?");
+        promptResponses.put("good evening", "Good evening! How can I help you?");
+        promptResponses.put("solide", "built different");
     }
 
     public static String sendPrompt(String prompt) {
