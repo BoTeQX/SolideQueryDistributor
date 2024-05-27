@@ -5,34 +5,15 @@ import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
-import javafx.stage.Stage;
+import javafx.scene.input.*;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import javafx.util.Duration;
-import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.concurrent.CompletableFuture;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 
@@ -67,12 +48,12 @@ public class MainController {
         logoutButton.setOnAction(event -> logout());
         toggleButton.setOnAction(this::handleToggleAction);
         sendButton.setOnAction(event -> confirmPrompt());
-        System.out.println(LoginController.getLoggedInUser().getUsername() + " is ingelogd");
+        chatField.setOnKeyPressed(this::keyPressed);
     }
 
     private void confirmPrompt() {
         LamaAPI.connectToHost();
-        String text = chatField.getText();
+        String text = chatField.getText().trim();
         if (text == null || text.length() == 0 || waitingForResponse)
             return;
 
@@ -104,8 +85,13 @@ public class MainController {
 
         messageLabel.setWrapText(true);
         Text textNode = new Text(text);
+
+        Font currentFont = messageLabel.getFont();
+        Font newFont = new Font(currentFont.getFamily(), 16);
+
         textNode.setFont(messageLabel.getFont());
         textNode.setWrappingWidth(300);
+        textNode.setFont(newFont);
         textNode.setTextOrigin(VPos.BASELINE);
         textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
 
@@ -116,13 +102,13 @@ public class MainController {
 
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
-            messageLabel.setStyle("-fx-background-color: lightblue; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10;");
+            messageLabel.setStyle("-fx-background-color: #41515c; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
             waitingForResponse = false;
             chatField.setText("");
             chatField.setDisable(false);
         } else {
             messageBox.setAlignment(Pos.CENTER_RIGHT);
-            messageLabel.setStyle("-fx-background-color: lightgreen; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10;");
+            messageLabel.setStyle("-fx-background-color: #218aff; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
         }
 
         messageBox.getChildren().add(messageLabel);
@@ -157,6 +143,8 @@ public class MainController {
         sendCircle.setLayoutX(850);
         toggleButton.setText(">");
         toggleButton.setLayoutX(0);
+        chatPane.setPrefWidth(830);
+        chatBox.setPrefWidth(825);
     }
 
     private void showSidebar(){
@@ -168,5 +156,19 @@ public class MainController {
         sendCircle.setLayoutX(591);
         toggleButton.setText("<");
         toggleButton.setLayoutX(205);
+        chatPane.setPrefWidth(587);
+        chatBox.setPrefWidth(583);
     }
+
+    private void keyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (event.isShiftDown()) {
+                chatField.appendText("\n");
+            } else {
+                event.consume();
+                confirmPrompt();
+            }
+        }
+    }
+
 }
