@@ -46,12 +46,22 @@ public class LoginController {
         });
     }
 
+    public static User loggedInUser = null;
+
     private String getUsername() {
         return loginUsernameTextField.getText();
     }
 
     private String getPassword() {
         return loginPasswordPasswordField.getText();
+    }
+
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(User user) {
+        loggedInUser = user;
     }
 
     private void clearFields() {
@@ -97,6 +107,7 @@ public class LoginController {
 
     private void validateLoginCredentials (String username, String password) throws IOException {
         if (UserController.checkUser(username, password)) {
+            setLoggedInUser(UserController.getUser(username));
             redirectUser();
         } else {
             createAlertDialog("ongeldige gebruikersnaam of wachtwoord");
