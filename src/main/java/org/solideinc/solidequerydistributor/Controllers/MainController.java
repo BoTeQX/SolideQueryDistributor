@@ -80,8 +80,10 @@ public class MainController {
     }
 
     private void addMessage(String text, boolean answer) {
+        text = text.trim();
         Label messageLabel = new Label(text);
         HBox messageBox = new HBox();
+
 
         messageLabel.setWrapText(true);
         Text textNode = new Text(text);
@@ -102,13 +104,13 @@ public class MainController {
 
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
-            messageLabel.setStyle("-fx-background-color: #41515c; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: transparent; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
             waitingForResponse = false;
             chatField.setText("");
             chatField.setDisable(false);
         } else {
             messageBox.setAlignment(Pos.CENTER_RIGHT);
-            messageLabel.setStyle("-fx-background-color: #218aff; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: #41515c; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
         }
 
         messageBox.getChildren().add(messageLabel);

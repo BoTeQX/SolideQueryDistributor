@@ -1,24 +1,49 @@
+/* General style */
+#mainContent {
+    -fx-background-color: black;
+}
+
+#chatPane {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-vbar-policy: "NEVER";
+}
+
+#chatBox {
+    -fx-background-color: black;
+}
+
+.chatPane {
+    -fx-background: black;
+    -fx-border-color: black;
+}
+
+.chatPane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Button style */
 #loginButton {
     -fx-background-color: black;
     -fx-padding: 10px;
-    -fx-border-color: White;
+    -fx-border-color: white;
     -fx-border-radius: 20px;
     -fx-border-width: 2px;
-    -fx-text-fill: WHITE;
+    -fx-text-fill: white;
     -fx-cursor: hand;
 }
 
 #loginButton:hover {
     -fx-text-fill: black;
     -fx-border-color: white;
-    -fx-background-color: WHITE;
+    -fx-background-color: white;
     -fx-background-radius: 20px;
     -fx-cursor: hand;
 }
 
-.text-field-error {
-    -fx-border-color: red;
-    -fx-border-width: 3px;
+.logoutButton {
+    -fx-background-color: transparent;
 }
 
 .logoutButton:hover {
@@ -27,10 +52,19 @@
     -fx-cursor: hand;
 }
 
+.accountPageButton {
+    -fx-background-color: transparent;
+}
+
 .accountPageButton:hover {
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
     -fx-cursor: hand;
+}
+
+.sendPromptButton {
+    -fx-background-radius: 100;
+    -fx-background-color: transparent;
 }
 
 .sendPromptButton:hover {
@@ -48,22 +82,14 @@
     -fx-cursor: hand;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
-
 }
 
-.chatField .content{
-    -fx-background-color: #484545 ;
-    -fx-background-radius: 15px;
-    -fx-text-fill: white;
-
-}
-
+/* Chat Field Styles */
 .chatField {
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
     -fx-background: black;
     -fx-text-fill: white;
-
 }
 
 .chatField:focused {
@@ -72,11 +98,18 @@
     -fx-vbar-policy: never;
 }
 
+.chatField .content {
+    -fx-background-color: #484545;
+    -fx-background-radius: 15px;
+    -fx-text-fill: white;
+}
+
 .chatField .scroll-pane {
     -fx-vbar-policy: never;
 }
 
-.chatPane:focused {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+/* Error style */
+.text-field-error {
+    -fx-border-color: red;
+    -fx-border-width: 3px;
 }
