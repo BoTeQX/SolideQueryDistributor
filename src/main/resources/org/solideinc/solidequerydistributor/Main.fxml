@@ -11,71 +11,72 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="RootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.MainController">
-    <children>
-        <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
-            <children>
-                <Label focusTraversable="false" layoutX="59.0" layoutY="31.0" prefHeight="13.0" prefWidth="168.0" text="Solide™ Query Distributor" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="13.0" />
-                    </font>
-                </Label>
-                <Label focusTraversable="false" layoutX="23.0" layoutY="573.0" opacity="0.2" text="Copyright © Solide™ Inc. Alle rechten voorbehouden..">
-                    <font>
-                        <Font size="9.0" />
-                    </font></Label>
-                <ImageView fitHeight="19.0" fitWidth="23.0" layoutX="31.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/logo.png" />
-                    </image>
+<Pane fx:id="RootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.solideinc.solidequerydistributor.Controllers.MainController" stylesheets="@style.css">
+    <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="260.0">
+        <Label layoutX="59.0" layoutY="31.0" prefHeight="13.0" prefWidth="168.0" text="Solide™ Query Distributor"
+               textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="13.0"/>
+            </font>
+        </Label>
+        <Label layoutX="23.0" layoutY="573.0" opacity="0.2"
+               text="Copyright © Solide™ Inc. Alle rechten voorbehouden..">
+            <font>
+                <Font size="9.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="19.0" fitWidth="23.0" layoutX="31.0" layoutY="31.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@/logo.png"/>
+        </ImageView>
+        <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0"
+                styleClass="accountPageButton">
+            <graphic>
+                <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true"
+                           styleClass="accountPageButton">
+                    <Image url="@../../../pfpic.jpg"/>
                 </ImageView>
-                <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" style="-fx-background-color: transparent;" styleClass="accountPageButton">
-                    <graphic>
-                        <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="accountPageButton">
-                            <image>
-                                <Image url="@../../../pfpic.jpg" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button fx:id="logoutButton" layoutX="205.0" layoutY="537.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="44.0" style="-fx-background-color: transparent;" styleClass="logoutButton">
-               <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" styleClass="logoutButton">
-                            <image>
-                                <Image url="@../../../settings.png" />
-                            </image>
-                        </ImageView>
-               </graphic>
-                </Button>
+            </graphic>
+        </Button>
+        <Button fx:id="logoutButton" layoutX="205.0" layoutY="537.0" mnemonicParsing="false" prefHeight="19.0"
+                prefWidth="44.0" styleClass="logoutButton">
+            <graphic>
+                <ImageView fitHeight="32.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true"
+                           styleClass="logoutButton">
+                    <Image url="@../../../settings.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
 
-            </children>
-        </Pane>
-        <Pane fx:id="mainContent" layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: black;">
-            <children>
-                <Circle fx:id="sendCircle" fill="WHITE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" styleClass="sendPromptButton" />
-                <Button fx:id="sendButton" defaultButton="true" layoutX="562.0" layoutY="527.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="59.0" style="-fx-background-radius: 100; -fx-background-color: transparent;" styleClass="sendPromptButton" textFill="WHITE">
-                    <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" styleClass="sendPromptButton">
-                            <image>
-                                <Image url="@../../../chat.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            <TextArea styleClass="chatField" fx:id="chatField" layoutX="36.0" layoutY="535.0" prefHeight="44.0" prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextArea>
-            <ScrollPane styleClass="chatPane" fx:id="chatPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="36.0" prefHeight="483.0" prefWidth="587.0" style="-fx-background: black; -fx-border-color: black;" vbarPolicy="NEVER">
-               <content>
-                  <VBox styleClass="chatPane" fx:id="chatBox" prefHeight="480.0" prefWidth="583.0" style="-fx-background-color: black;" />
-               </content>
-            </ScrollPane>
-            </children></Pane>
-        <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" stylesheets="@style.css" text="&lt;">
-         <font>
-            <Font size="20.0" />
-         </font></Button>
-    </children>
+    </Pane>
+    <Pane fx:id="mainContent" id="mainContent" layoutX="260.0" prefHeight="600.0" prefWidth="640.0">
+        <Circle fx:id="sendCircle" fill="WHITE" layoutX="591.0" layoutY="556.0" radius="26.0" stroke="BLACK"
+                strokeType="INSIDE" styleClass="sendPromptButton"/>
+        <Button fx:id="sendButton" defaultButton="true" layoutX="562.0" layoutY="527.0" mnemonicParsing="false"
+                prefHeight="61.0" prefWidth="59.0" styleClass="sendPromptButton" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="33.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true"
+                           styleClass="sendPromptButton">
+                    <Image url="@../../../chat.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <TextArea styleClass="chatField" fx:id="chatField" layoutX="36.0" layoutY="535.0" prefHeight="44.0"
+                  prefWidth="518.0" promptText="Stel je vraag aan de Solide™  Assistent" wrapText="true">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextArea>
+        <ScrollPane styleClass="chatPane" fx:id="chatPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="36.0"
+                    prefHeight="483.0" prefWidth="587.0">
+            <VBox styleClass="chatPane" fx:id="chatBox" prefHeight="480.0" prefWidth="583.0"/>
+        </ScrollPane>
+    </Pane>
+    <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" text="&lt;">
+        <font>
+            <Font size="20.0"/>
+        </font>
+    </Button>
 </Pane>
