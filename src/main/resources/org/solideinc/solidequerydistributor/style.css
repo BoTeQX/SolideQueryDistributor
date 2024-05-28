@@ -23,6 +23,10 @@
     -fx-faint-focus-color: transparent;
 }
 
+#sidebar {
+    -fx-background-color: white;
+}
+
 /* Button style */
 #loginButton {
     -fx-background-color: black;
