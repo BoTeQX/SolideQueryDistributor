@@ -88,7 +88,33 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.17.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.17.1</version>
+    </dependency>
+    <dependency>
+      <groupId>at.favre.lib</groupId>
+      <artifactId>bcrypt</artifactId>
+      <version>0.10.2</version>
+    </dependency>
+      <dependency>
+          <groupId>io.github.amithkoujalgi</groupId>
+          <artifactId>ollama4j</artifactId>
+          <version>1.0.69</version>
+      </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>2.0.9</version> <!--Replace with appropriate version-->
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -110,7 +136,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>org.solideinc.solidequerydistributor/org.solideinc.solidequerydistributor.HelloApplication</mainClass>
+              <mainClass>org.solideinc.solidequerydistributor/org.solideinc.solidequerydistributor.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
