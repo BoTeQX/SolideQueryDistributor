@@ -1,19 +1,12 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.solideinc.solidequerydistributor.Classes.User;
-import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 import java.io.IOException;
@@ -36,7 +29,6 @@ public class LoginController {
 
     @FXML
     private void initialize() throws IOException {
-        UserController.createUser("admin@admin.nl", "admin", "admin", "nl");
         loginButton.setOnAction(event -> {
             try {
                 login();

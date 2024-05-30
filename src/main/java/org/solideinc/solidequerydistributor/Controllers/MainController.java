@@ -1,6 +1,5 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
-
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -11,8 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+import org.solideinc.solidequerydistributor.Classes.Conversation;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
+
+import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
@@ -38,29 +41,47 @@ public class MainController {
     private Circle sendCircle;
     private boolean waitingForResponse = false;
 
-
     private boolean isSidebarVisible = true;
 
-
+    private final Conversation tempConv = new Conversation("test");
 
     @FXML
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
         toggleButton.setOnAction(this::handleToggleAction);
-        sendButton.setOnAction(event -> confirmPrompt());
-        chatField.setOnKeyPressed(this::keyPressed);
+        sendButton.setOnAction(event -> {
+            try {
+                confirmPrompt(this.tempConv);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Optionally, you can show an error message to the user
+            }
+        });
+
+        // Handling key pressed event with lambda expression
+        chatField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
+                event.consume();
+                try {
+                    confirmPrompt(this.tempConv);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Optionally, you can show an error message to the user
+                }
+            }
+        });
     }
 
-    private void confirmPrompt() {
+    private void confirmPrompt(Conversation conversation) throws IOException {
         LamaAPI.connectToHost();
         String text = chatField.getText().trim();
         if (text == null || text.length() == 0 || waitingForResponse)
             return;
 
-        addMessage(text, false);
+        addMessage(conversation, text, false);
         String fakeText = SolideAPI.sendPrompt(text);
         if (fakeText != null) {
-            addMessage(fakeText, true);
+            addMessage(conversation, fakeText, true);
             return;
         }
 
@@ -68,22 +89,28 @@ public class MainController {
             chatField.setText("Wachten op reactie...");
             chatField.setDisable(true);
             CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
-                Platform.runLater(() -> addMessage(response, true));
+                Platform.runLater(() -> {
+                    try {
+                        addMessage(conversation, response, true);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             });
             waitingForResponse = true;
-        }else {
+        } else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
-                addMessage("De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true);
+                addMessage(conversation, "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true);
             else
-                addMessage("The Solide™ Assistant is currently offline, please try again later", true);
+                addMessage(conversation, "The Solide™ Assistant is currently offline, please try again later", true);
         }
     }
 
-    private void addMessage(String text, boolean answer) {
+    private void addMessage(Conversation conversation, String text, boolean answer) throws IOException {
         text = text.trim();
+        conversation.addMessage(text, answer);
         Label messageLabel = new Label(text);
         HBox messageBox = new HBox();
-
 
         messageLabel.setWrapText(true);
         Text textNode = new Text(text);
@@ -117,7 +144,6 @@ public class MainController {
         messageBox.setPadding(new Insets(5, 5, 5, 5));
         chatBox.getChildren().add(messageBox);
 
-        // EEE, JavaFX don't have inverted ScrollPane so you have to move it everytime :/
         PauseTransition pause = new PauseTransition(Duration.millis(25));
         pause.setOnFinished(event -> chatPane.setVvalue(1.0));
         pause.play();
@@ -161,16 +187,4 @@ public class MainController {
         chatPane.setPrefWidth(587);
         chatBox.setPrefWidth(583);
     }
-
-    private void keyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            if (event.isShiftDown()) {
-                chatField.appendText("\n");
-            } else {
-                event.consume();
-                confirmPrompt();
-            }
-        }
-    }
-
 }

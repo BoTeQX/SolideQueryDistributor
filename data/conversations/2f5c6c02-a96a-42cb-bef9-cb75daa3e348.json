@@ -1,0 +1,29 @@
+{
+  "id" : "2f5c6c02-a96a-42cb-bef9-cb75daa3e348",
+  "conversationName" : "test",
+  "conversation" : [ {
+    "message" : "test",
+    "isAnswer" : false
+  }, {
+    "message" : "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals",
+    "isAnswer" : true
+  }, {
+    "message" : "yap",
+    "isAnswer" : false
+  }, {
+    "message" : "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals",
+    "isAnswer" : true
+  }, {
+    "message" : "poop",
+    "isAnswer" : false
+  }, {
+    "message" : "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals",
+    "isAnswer" : true
+  }, {
+    "message" : "YERR",
+    "isAnswer" : false
+  }, {
+    "message" : "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals",
+    "isAnswer" : true
+  } ]
+}
