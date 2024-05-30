@@ -13,7 +13,7 @@ public class LamaAPI {
     public static void connectToHost() {
         ollamaAPI = new OllamaAPI(HOST);
         ollamaAPI.setVerbose(true);
-        ollamaAPI.setRequestTimeoutSeconds(20);
+        ollamaAPI.setRequestTimeoutSeconds(90);
     }
 
     public static boolean isConnected() {

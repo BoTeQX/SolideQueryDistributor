@@ -51,7 +51,7 @@ public class MainController {
         logoutButton.setOnAction(event -> logout());
         toggleButton.setOnAction(this::handleToggleAction);
         sendButton.setOnAction(event -> confirmPrompt());
-        chatField.setOnKeyPressed(this::keyPressed);
+        chatField.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
     }
 
     private void confirmPrompt() {
