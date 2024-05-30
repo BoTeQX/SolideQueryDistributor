@@ -40,10 +40,11 @@ Solide™ Query Distributor is a sophisticated AI assistant, Solide™- Assisten
    ```
 
 ## Usage
-**Login**: Enter your credentials to access the application.
-**Query Submission**: Type your query into the prompt and receive instant, accurate responses from Solide™- Assistent.
-**Manage Conversations**: Open multiple tabs for different topics and view the conversation history for each.
-**Profile Settings**: Update your personal information as needed.
+
+- **Login**: Enter your credentials to access the application.
+- **Query Submission**: Type your query into the prompt and receive instant, accurate responses from Solide™- Assistent.
+- **Manage Conversations**: Open multiple tabs for different topics and view the conversation history for each.
+- **Profile Settings**: Update your personal information as needed.
 
 ## Contributing
 We welcome contributions from the community! Please follow these steps to contribute:
