@@ -5,14 +5,13 @@ import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
-import io.github.amithkoujalgi.ollama4j.core.models.ModelDetail;
 import java.io.IOException;
 
 public class LamaAPI {
-    private static final String host = "http://localhost:11434/";
+    private static final String HOST = "http://localhost:11434/";
     private static OllamaAPI ollamaAPI;
     public static void connectToHost() {
-        ollamaAPI = new OllamaAPI(host);
+        ollamaAPI = new OllamaAPI(HOST);
         ollamaAPI.setVerbose(true);
         ollamaAPI.setRequestTimeoutSeconds(20);
     }
@@ -30,16 +29,11 @@ public class LamaAPI {
         return true;
     }
 
-    public static String sendPrompt(String prompt) {
+    public static String sendPrompt(String prompt) throws OllamaBaseException, IOException, InterruptedException {
         if (ollamaAPI == null || !isConnected())
             return "SERVER OFFLINE";
 
-        try {
-            OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build());
-            return result.getResponse();
-        } catch (OllamaBaseException | IOException | InterruptedException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
+        OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build());
+        return result.getResponse();
     }
 }

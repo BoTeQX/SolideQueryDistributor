@@ -1,6 +1,7 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
 
+import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -13,6 +14,8 @@ import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
+
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
@@ -54,7 +57,7 @@ public class MainController {
     private void confirmPrompt() {
         LamaAPI.connectToHost();
         String text = chatField.getText().trim();
-        if (text == null || text.length() == 0 || waitingForResponse)
+        if (text.isEmpty() || waitingForResponse)
             return;
 
         addMessage(text, false);
@@ -67,9 +70,13 @@ public class MainController {
         if (LamaAPI.isConnected()) {
             chatField.setText("Wachten op reactie...");
             chatField.setDisable(true);
-            CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
-                Platform.runLater(() -> addMessage(response, true));
-            });
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    return LamaAPI.sendPrompt(text);
+                } catch (OllamaBaseException | InterruptedException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).thenAccept(response -> Platform.runLater(() -> addMessage(response, true)));
             waitingForResponse = true;
         }else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
