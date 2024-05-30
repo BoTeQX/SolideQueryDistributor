@@ -39,13 +39,13 @@ Solide™ Query Distributor is a sophisticated AI assistant, Solide™- Assisten
     cd solide-query-distributor
    ```
 
-##Usage
+## Usage
 **Login**: Enter your credentials to access the application.
 **Query Submission**: Type your query into the prompt and receive instant, accurate responses from Solide™- Assistent.
 **Manage Conversations**: Open multiple tabs for different topics and view the conversation history for each.
 **Profile Settings**: Update your personal information as needed.
 
-##Contributing
+## Contributing
 We welcome contributions from the community! Please follow these steps to contribute:
 
 - Fork the repository.
@@ -54,7 +54,7 @@ We welcome contributions from the community! Please follow these steps to contri
 - Push to your branch.
 - Create a pull request.
 
-##License
+## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 Thank you for using Solide™ Query Distributor! We hope this tool enhances your productivity and makes information retrieval easier and more efficient.
