@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="RootLayout" focusTraversable="true" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.AccountController">
+    <children>
+        <Pane prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
+            <children>
+                <Label focusTraversable="false" layoutX="14.0" layoutY="398.0" text="Solide™ Query Distributor" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Label focusTraversable="false" layoutX="23.0" layoutY="573.0" opacity="0.2" text="Copyright © Solide™ Inc. Alle rechten voorbehouden..">
+                    <font>
+                        <Font size="9.0" />
+                    </font></Label>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="47.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/logo.png" />
+                    </image>
+                </ImageView>
+
+            </children>
+        </Pane>
+        <Pane layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: black;">
+            <children>
+                <Label alignment="CENTER" focusTraversable="false" layoutX="247.0" layoutY="60.0" prefHeight="53.0" prefWidth="146.0" text="Account" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+                <Button id="updateAccountButton" fx:id="updateAccountButton" focusTraversable="false" layoutX="99.0" layoutY="346.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Save">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+                <TextField id="updateUsernameTextField" fx:id="updateUsernameTextField" alignment="CENTER" focusTraversable="false" layoutX="61.0" layoutY="226.0" prefHeight="37.0" prefWidth="182.0" promptText="Gebruikersnaam" style="-fx-padding: 10px;" />
+                <PasswordField id="updatePasswordPasswordField" fx:id="updatePasswordPasswordField" alignment="CENTER" focusTraversable="false" layoutX="393.0" layoutY="226.0" prefHeight="37.0" prefWidth="182.0" promptText="Wachtwoord" style="-fx-background-color: white; -fx-padding: 10px;" />
+            <PasswordField id="updateConfirmPasswordPasswordField" fx:id="updateConfirmPasswordPasswordField" alignment="CENTER" focusTraversable="false" layoutX="393.0" layoutY="274.0" prefHeight="38.0" prefWidth="182.0" promptText="Bevestig wachtwoord" />
+            <TextField id="updateEmailTextField" fx:id="updateEmailTextField" alignment="CENTER" focusTraversable="false" layoutX="61.0" layoutY="274.0" prefHeight="38.0" prefWidth="182.0" promptText="E-Mail" />
+            <Label alignment="CENTER" layoutX="93.0" layoutY="202.0" text="Gebruiker informatie" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="451.0" layoutY="202.0" text="Wachtwoord" textAlignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="16.0" layoutY="14.0" text="Taal voorkeur" textFill="WHITE" />
+            <Button id="exitAccountPageButton" fx:id="exitAccountPageButton" alignment="CENTER" layoutX="597.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: black;" text="X" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+            <Button id="changePasswordButton" fx:id="changePasswordButton" focusTraversable="false" layoutX="394.0" layoutY="346.0" mnemonicParsing="false" text="Verander wachtwoord">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
+            <ComboBox id="updateLanguageComboBox" fx:id="updateLanguageComboBox" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="78.0" visibleRowCount="2" />
+            <Line endX="-10.0" endY="-308.6000061035156" layoutX="330.0" layoutY="440.0" startX="-10.0" startY="24.399993896484375" stroke="WHITE" />
+            </children></Pane>
+    </children>
+</Pane>

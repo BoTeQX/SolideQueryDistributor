@@ -24,6 +24,8 @@ public class MainController {
     @FXML
     private Button logoutButton;
     @FXML
+    private Button accountPageButton;
+    @FXML
     private VBox chatBox;
     @FXML
     private TextArea chatField;
@@ -49,9 +51,11 @@ public class MainController {
     @FXML
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
+        accountPageButton.setOnAction(event -> accountPage());
         toggleButton.setOnAction(this::handleToggleAction);
         sendButton.setOnAction(event -> confirmPrompt());
         chatField.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
+        SolideAPI.setPromptsBasedOnLanguagePreference();
     }
 
     private void confirmPrompt() {
@@ -132,6 +136,9 @@ public class MainController {
 
     private void logout(){
         PageLoader.loadLoginPage();
+    }
+    private void accountPage(){
+        PageLoader.loadAccountPage();
     }
 
     private void handleToggleAction(ActionEvent event) {

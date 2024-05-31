@@ -1,7 +1,13 @@
 [ {
-  "id" : "b0eacb19-74f9-4868-8cf1-89e300f0c50e",
+  "id" : "dcb10ad4-4d1f-44ee-a39a-654deb0130a8",
+  "email" : "adminx@admin.nl",
+  "username" : "adminx",
+  "password" : "$2a$12$3UHH4rqkCnKyqOuDUHNIIerdPoY0QF8GAmuhu6iWLMYawrui/iEeO",
+  "languagePreference" : "en"
+}, {
+  "id" : "dcb10ad4-4d1f-44ee-a39a-654deb0130a9",
   "email" : "admin@admin.nl",
   "username" : "admin",
-  "password" : "$2a$12$AFt0PAISY8FKguQSqFQwkOsYTW.6qSuvdqVTww0SZveIKqygh4IPe",
+  "password" : "$2a$12$Y6frPP0oPMeb0LHLkkkEteP2iSnq17BcyO3Cpd5xnE3W9egDYw8om",
   "languagePreference" : "nl"
 } ]
