@@ -71,6 +71,29 @@
     -fx-cursor: hand;
 }
 
+#exitAccountPageButton{
+    -fx-text-fill: white;
+}
+
+#exitAccountPageButton:hover{
+    -fx-text-fill: red;
+    -fx-cursor: hand;
+}
+
+#updateLanguageComboBox{
+    -fx-background-color: black;
+    -fx-padding: 5px;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+#updateLanguageComboBox .list-cell{
+    -fx-text-fill: white;
+}
+#updateLanguageComboBox .list-view .list-cell {
+    -fx-text-fill: black;
+}
 
 .logoutButton {
     -fx-background-color: transparent;

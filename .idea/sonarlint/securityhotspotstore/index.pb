@@ -17,3 +17,7 @@ Gsrc/main/java/org/solideinc/solidequerydistributor/Util/FxmlLoader.java,a\8\a8
 Rsrc/main/java/org/solideinc/solidequerydistributor/Controllers/MainController.java,6\5\6510b28baecbeae9d000e3216c685389bfebbe6b
 v
 Fsrc/main/java/org/solideinc/solidequerydistributor/Util/SolideAPI.java,e\0\e0e864c8cc30acff25c0fae4cdcaf3d428bf1a0f
+…
+Usrc/main/java/org/solideinc/solidequerydistributor/Controllers/AccountController.java,7\4\74b88e6edcba49edd8226e97ca7ba6963eb1bf49
+?
+data/users.json,7\1\71d12d325892fd8899899cd57d8cd635147d61cd

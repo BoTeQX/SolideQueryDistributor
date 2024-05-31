@@ -38,6 +38,8 @@ public class AccountController {
         changePasswordButton.setOnAction(event -> changePassword());
         exitAccountPageButton.setOnAction(event -> mainPage());
 
+        updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
+
         updateUsernameTextField.setText(user.getUsername());
         updateEmailTextField.setText(user.getEmail());
         ObservableList<String>  options = updateLanguageComboBox.getItems();
@@ -46,25 +48,35 @@ public class AccountController {
         updateLanguageComboBox.setValue(user.getLanguagePreference());
     }
     private void saveAccountInformation(){
-        if (updateUsernameTextField.getText().equals(user.getUsername()) && updateEmailTextField.getText().equals(user.getEmail()) && updateLanguageComboBox.getValue().equals(user.getLanguagePreference())){
+        if (updateUsernameTextField.getText().equals(user.getUsername()) && updateEmailTextField.getText().equals(user.getEmail())){
             createAlertDialog("Er zijn geen veranderingen");
             return ;
         }
-        if (updateUsernameTextField.getText().isEmpty() || updateEmailTextField.getText().isEmpty() || updateLanguageComboBox.getValue().isEmpty()){
+        if (updateUsernameTextField.getText().isEmpty() || updateEmailTextField.getText().isEmpty()){
             createAlertDialog("Vul alstublieft alle velden in");
             return ;
         }
-        if (!updateUsernameTextField.getText().isEmpty() && !updateEmailTextField.getText().isEmpty() && !updateLanguageComboBox.getValue().isEmpty()){
+        if (!updateUsernameTextField.getText().isEmpty() && !updateEmailTextField.getText().isEmpty()){
             user.setUsername(updateUsernameTextField.getText());
             user.setEmail(updateEmailTextField.getText());
-            user.setLanguagePreference(updateLanguageComboBox.getValue());
             try {
                 UserController.updateUsers();
             }catch (IOException e){
                 throw new RuntimeException(e);
             }
         }
+        createConfirmDialog("Account informatie geupdate");
     }
+
+    private void updateLanguageSetting(){
+        user.setLanguagePreference(updateLanguageComboBox.getValue());
+        try {
+            UserController.updateUsers();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     private void changePassword(){
         if (updatePasswordPasswordField.getText().isEmpty() || updateConfirmPasswordPasswordField.getText().isEmpty()){
             createAlertDialog("Vul alstublieft alle velden in");
@@ -82,6 +94,7 @@ public class AccountController {
                 throw new RuntimeException(e);
             }
         }
+        createConfirmDialog("Wachtwoord geupdate");
         updatePasswordPasswordField.setText("");
         updateConfirmPasswordPasswordField.setText("");
     }
@@ -92,6 +105,13 @@ public class AccountController {
     private void createAlertDialog(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Update fout");
+        alert.setHeaderText(content);
+        alert.setContentText(null);
+        alert.showAndWait();
+    }
+    private void createConfirmDialog(String content) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Gegevens succesvol geupdate");
         alert.setHeaderText(content);
         alert.setContentText(null);
         alert.showAndWait();
