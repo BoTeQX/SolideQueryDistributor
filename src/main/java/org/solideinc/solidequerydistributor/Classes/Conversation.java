@@ -1,5 +1,8 @@
 package org.solideinc.solidequerydistributor.Classes;
 
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import org.solideinc.solidequerydistributor.Util.JsonHandler;
 
 import java.io.IOException;

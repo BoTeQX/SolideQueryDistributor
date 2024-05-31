@@ -1,0 +1,11 @@
+{
+  "id" : "3c7c8447-22f5-46ec-b419-e8c2f50a4176",
+  "conversationName" : "test",
+  "conversation" : [ {
+    "message" : "test",
+    "isAnswer" : false
+  }, {
+    "message" : "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals",
+    "isAnswer" : true
+  } ]
+}

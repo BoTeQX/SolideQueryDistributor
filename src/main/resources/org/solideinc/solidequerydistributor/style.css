@@ -117,3 +117,32 @@
     -fx-border-color: red;
     -fx-border-width: 3px;
 }
+
+.conversation {
+    -fx-alignment: center-left;
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-padding: 0 0 0 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.conversation:focused {
+    -fx-border-color: black;
+}
+
+.conversation:hover {
+    -fx-border-color: black;
+}
+
+.conversation .optionButton {
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-padding: 0 10 8 0;
+    -fx-font-weight: bold;
+}
+
+.conversation .label {
+    -fx-font-size: 16px;
+}
+
