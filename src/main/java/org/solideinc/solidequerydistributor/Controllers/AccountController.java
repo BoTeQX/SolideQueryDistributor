@@ -12,7 +12,6 @@ import org.solideinc.solidequerydistributor.Util.SolideAPI;
 import javax.imageio.IIOException;
 import java.awt.*;
 import java.io.IOException;
-
 public class AccountController {
     @FXML
     private ComboBox<String> updateLanguageComboBox;
