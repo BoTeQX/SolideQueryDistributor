@@ -52,6 +52,7 @@ public class MainController {
         toggleButton.setOnAction(this::handleToggleAction);
         sendButton.setOnAction(event -> confirmPrompt());
         chatField.setOnKeyPressed(this::keyPressed);
+        SolideAPI.setPromptsBasedOnLanguagePreference();
     }
 
     private void confirmPrompt() {
