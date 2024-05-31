@@ -53,4 +53,8 @@ public class PageLoader {
     public static void loadMainPage() {
         loadPage("Main.fxml", "Solide™ Query Distributor - Main");
     }
+
+    public static void loadAccountPage() {
+        loadPage("Account.fxml", "Solide™ Query Distributor - Account");
+    }
 }

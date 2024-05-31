@@ -46,6 +46,32 @@
     -fx-cursor: hand;
 }
 
+#updateAccountButton, #changePasswordButton {
+    -fx-background-color: black;
+    -fx-padding: 10px;
+    -fx-border-color: white;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#updateAccountButton:hover {
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+#changePasswordButton:hover {
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+
+
 .logoutButton {
     -fx-background-color: transparent;
 }

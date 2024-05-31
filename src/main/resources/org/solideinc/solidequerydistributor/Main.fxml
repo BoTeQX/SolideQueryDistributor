@@ -31,7 +31,7 @@
                    preserveRatio="true">
             <Image url="@/logo.png"/>
         </ImageView>
-        <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0"
+        <Button fx:id="accountPageButton" layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0"
                 styleClass="accountPageButton">
             <graphic>
                 <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true"
