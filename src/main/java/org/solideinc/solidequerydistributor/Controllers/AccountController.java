@@ -1,5 +1,6 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +14,8 @@ import javax.imageio.IIOException;
 import java.awt.*;
 import java.io.IOException;
 public class AccountController {
+    @FXML
+    private PasswordField oldPasswordPasswordField;
     @FXML
     private ComboBox<String> updateLanguageComboBox;
     @FXML
@@ -77,23 +80,29 @@ public class AccountController {
     }
 
     private void changePassword(){
-        if (updatePasswordPasswordField.getText().isEmpty() || updateConfirmPasswordPasswordField.getText().isEmpty()){
+        BCrypt.Result result = BCrypt.verifyer().verify(oldPasswordPasswordField.getText().toCharArray(), user.getPassword());
+        if (!result.verified){
+            createAlertDialog("Wachtwoord is incorrect.");
+            return ;
+        }
+        if (updatePasswordPasswordField.getText().isEmpty() || updateConfirmPasswordPasswordField.getText().isEmpty() || oldPasswordPasswordField.getText().isEmpty()){
             createAlertDialog("Vul alstublieft alle velden in");
             return ;
         }
         if (!updatePasswordPasswordField.getText().equals(updateConfirmPasswordPasswordField.getText())){
-            createAlertDialog("De wachtwoorden komen niet over een");
+            createAlertDialog("De wachtwoorden komen niet overeen");
             return ;
         }
-        if(!updatePasswordPasswordField.getText().isEmpty() && !updateConfirmPasswordPasswordField.getText().isEmpty() && updatePasswordPasswordField.getText().equals(updateConfirmPasswordPasswordField.getText())) {
+        if(!updatePasswordPasswordField.getText().isEmpty() && !updateConfirmPasswordPasswordField.getText().isEmpty() && !oldPasswordPasswordField.getText().isEmpty() && updatePasswordPasswordField.getText().equals(updateConfirmPasswordPasswordField.getText())) {
             user.updatePassword(updatePasswordPasswordField.getText());
             try {
                 UserController.updateUsers();
+                createConfirmDialog("Wachtwoord geupdate");
             }catch (IOException e){
                 throw new RuntimeException(e);
             }
         }
-        createConfirmDialog("Wachtwoord geupdate");
+        oldPasswordPasswordField.setText("");
         updatePasswordPasswordField.setText("");
         updateConfirmPasswordPasswordField.setText("");
     }
