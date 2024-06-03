@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Classes.Conversation;
+import org.solideinc.solidequerydistributor.Classes.ConversationList;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
@@ -113,7 +114,7 @@ public class MainController {
     private void addConversation(String name) {
         Label nameLabel = new Label(name);
         nameLabel.setPrefWidth(300);
-        nameLabel.getStyleClass().add("label");
+        nameLabel.getStyleClass().add("nameLabel");
 
         Button optionsButton = new Button(". . .");
         optionsButton.getStyleClass().add("optionButton");
@@ -122,23 +123,31 @@ public class MainController {
         optionsButton.setOnAction(event -> {
             contextMenu.show(optionsButton, Side.BOTTOM, 0, 0);
         });
+        contextMenu.getStyleClass().add("contextMenu");
 
         HBox hBox = new HBox(nameLabel, optionsButton);
         hBox.getStyleClass().add("conversation");
         VBox pageButton = new VBox(hBox);
         VBox.setMargin(hBox, new Insets(5, 0, 0, 0));
 
-        MenuItem deleteItem = new MenuItem("Delete");
-        deleteItem.getStyleClass().add("item");
+        MenuItem deleteItem = new MenuItem("Verwijderen");
+        deleteItem.getStyleClass().add("menu-item");
+        deleteItem.getStyleClass().add("delete");
         deleteItem.setOnAction(event -> {
             chatPages.getChildren().remove(pageButton);
-            System.out.println("Delete " + name);
         });
 
-        MenuItem renameItem = new MenuItem("Rename");
-        renameItem.getStyleClass().add("item");
+        MenuItem renameItem = new MenuItem("Hernoemen");
+        renameItem.getStyleClass().add("menu-item");
         renameItem.setOnAction(event -> {
-            System.out.println("Rename " + name);
+            TextInputDialog dialog = new TextInputDialog(nameLabel.getText());
+            dialog.setTitle("Hernoemen");
+            dialog.setHeaderText("Hernoem het gesprek");
+            dialog.setContentText("Naam:");
+            dialog.showAndWait().ifPresent(result -> {
+                tempConv.setConversationName(result);
+                nameLabel.setText(result);
+            });
         });
 
         contextMenu.getItems().addAll(renameItem, deleteItem);

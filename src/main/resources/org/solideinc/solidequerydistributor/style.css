@@ -120,7 +120,7 @@
 
 .conversation {
     -fx-alignment: center-left;
-    -fx-border-color: transparent;
+    -fx-border-color: #6b6b6b;
     -fx-background-color: white;
     -fx-padding: 0 0 0 10;
     -fx-border-radius: 10;
@@ -142,7 +142,41 @@
     -fx-font-weight: bold;
 }
 
-.conversation .label {
-    -fx-font-size: 16px;
+.conversation .nameLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b6b6b;
 }
 
+.conversation:hover .nameLabel {
+    -fx-text-fill: black;
+}
+
+.contextMenu {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+.menu-item .label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b6b6b;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: black;
+}
+
+.delete .label {
+    -fx-text-fill: #b00000;
+}
+
+.delete:focused .label {
+    -fx-text-fill: #ff0000;
+}
+
+.menu-item:focused {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: #d2d2d2;
+    -fx-background: #d2d2d2;
+}
