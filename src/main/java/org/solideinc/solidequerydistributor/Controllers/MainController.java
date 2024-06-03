@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Classes.Conversation;
+import org.solideinc.solidequerydistributor.Classes.ConversationList;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
@@ -39,6 +40,9 @@ public class MainController {
     private Button toggleButton;
     @FXML
     private Circle sendCircle;
+    @FXML
+    private VBox chatPages;
+
     private boolean waitingForResponse = false;
 
     private boolean isSidebarVisible = true;
@@ -70,6 +74,8 @@ public class MainController {
                 }
             }
         });
+
+        addConversation(this.tempConv.getConversationName());
     }
 
     private void confirmPrompt(Conversation conversation) throws IOException {
@@ -105,6 +111,50 @@ public class MainController {
                 addMessage(conversation, "The Solide™ Assistant is currently offline, please try again later", true);
         }
     }
+    private void addConversation(String name) {
+        Label nameLabel = new Label(name);
+        nameLabel.setPrefWidth(300);
+        nameLabel.getStyleClass().add("nameLabel");
+
+        Button optionsButton = new Button(". . .");
+        optionsButton.getStyleClass().add("optionButton");
+
+        ContextMenu contextMenu = new ContextMenu();
+        optionsButton.setOnAction(event -> {
+            contextMenu.show(optionsButton, Side.BOTTOM, 0, 0);
+        });
+        contextMenu.getStyleClass().add("contextMenu");
+
+        HBox hBox = new HBox(nameLabel, optionsButton);
+        hBox.getStyleClass().add("conversation");
+        VBox pageButton = new VBox(hBox);
+        VBox.setMargin(hBox, new Insets(5, 0, 0, 0));
+
+        MenuItem deleteItem = new MenuItem("Verwijderen");
+        deleteItem.getStyleClass().add("menu-item");
+        deleteItem.getStyleClass().add("delete");
+        deleteItem.setOnAction(event -> {
+            chatPages.getChildren().remove(pageButton);
+        });
+
+        MenuItem renameItem = new MenuItem("Hernoemen");
+        renameItem.getStyleClass().add("menu-item");
+        renameItem.setOnAction(event -> {
+            TextInputDialog dialog = new TextInputDialog(nameLabel.getText());
+            dialog.setTitle("Hernoemen");
+            dialog.setHeaderText("Hernoem het gesprek");
+            dialog.setContentText("Naam:");
+            dialog.showAndWait().ifPresent(result -> {
+                tempConv.setConversationName(result);
+                nameLabel.setText(result);
+            });
+        });
+
+        contextMenu.getItems().addAll(renameItem, deleteItem);
+
+        chatPages.getChildren().add(pageButton);
+    }
+
 
     private void addMessage(Conversation conversation, String text, boolean answer) throws IOException {
         text = text.trim();
