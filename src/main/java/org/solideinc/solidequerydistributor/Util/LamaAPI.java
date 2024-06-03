@@ -5,6 +5,8 @@ import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
+import org.solideinc.solidequerydistributor.Controllers.MainController;
+
 import java.io.IOException;
 
 public class LamaAPI {
@@ -18,7 +20,7 @@ public class LamaAPI {
 
     public static boolean isConnected() {
         try {
-            if (ollamaAPI == null || !ollamaAPI.ping()) {
+            if (ollamaAPI == null || !ollamaAPI.ping() || MainController.offlineMode) {
                 System.out.println("Not connected");
                 return false;
             }
@@ -30,7 +32,7 @@ public class LamaAPI {
     }
 
     public static String sendPrompt(String prompt) throws OllamaBaseException, IOException, InterruptedException {
-        if (ollamaAPI == null || !isConnected())
+        if (ollamaAPI == null || !isConnected() || MainController.offlineMode)
             return "SERVER OFFLINE";
 
         OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build());

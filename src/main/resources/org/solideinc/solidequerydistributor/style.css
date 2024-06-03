@@ -166,3 +166,34 @@
     -fx-border-color: red;
     -fx-border-width: 3px;
 }
+
+/* iOS-style toggle switch */
+#offlineToggleButton {
+    -fx-background-color: red;
+    -fx-background-radius: 15px;
+    -fx-padding: 2;
+    -fx-text-fill: transparent;
+    -fx-text-alignment: center;
+    -fx-alignment: center-left;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 25px;
+    -fx-cursor: hand;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+}
+
+#offlineToggleButton:selected {
+    -fx-background-color: #4cd964;
+    -fx-background-radius: 15px;
+    -fx-padding: 2;
+    -fx-alignment: center-right;
+}
+
+#offlineToggleButtonCircle {
+    -fx-fill: white;
+    -fx-background-color: white;
+}
+
+
+

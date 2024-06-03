@@ -2,6 +2,7 @@ package org.solideinc.solidequerydistributor.Controllers;
 
 
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -41,12 +42,20 @@ public class MainController {
     private Button toggleButton;
     @FXML
     private Circle sendCircle;
-    private boolean waitingForResponse = false;
+    @FXML
+    private ToggleButton offlineToggleButton;
+    @FXML
+    private Circle offlineToggleButtonCircle;
 
+    private boolean waitingForResponse = false;
 
     private boolean isSidebarVisible = true;
 
+    public static boolean offlineMode = true;
 
+    private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
+
+    private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
 
     @FXML
     private void initialize() {
@@ -56,6 +65,34 @@ public class MainController {
         sendButton.setOnAction(event -> confirmPrompt());
         chatField.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
         SolideAPI.setPromptsBasedOnLanguagePreference();
+        setupOfflineToggleButton();
+    }
+
+    private void setupOfflineToggleButton() {
+        offlineToggleButton.setTooltip(offlineTooltip);
+        offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
+    }
+
+    private void handleOfflineToggleAction() {
+        TranslateTransition transition = createTransition();
+        if (offlineToggleButton.isSelected()) {
+            transition.setToX(19);
+            offlineMode = false;
+            setTooltip(onlineTooltip);
+        } else {
+            transition.setToX(0);
+            offlineMode = true;
+            setTooltip(offlineTooltip);
+        }
+        transition.play();
+    }
+
+    private TranslateTransition createTransition() {
+        return new TranslateTransition(Duration.seconds(0.25), offlineToggleButtonCircle);
+    }
+
+    private void setTooltip(Tooltip tooltip) {
+        offlineToggleButton.setTooltip(tooltip);
     }
 
     private void confirmPrompt() {
@@ -84,9 +121,9 @@ public class MainController {
             waitingForResponse = true;
         }else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
-                addMessage("De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true);
+                addMessage("De Solide™ Assistent is momenteel offline. probeer het later nogmaals, of schakel de online modus in.", true);
             else
-                addMessage("The Solide™ Assistant is currently offline, please try again later", true);
+                addMessage("The Solide™ Assistant is currently offline. please try again later, or enable online mode.", true);
         }
     }
 
