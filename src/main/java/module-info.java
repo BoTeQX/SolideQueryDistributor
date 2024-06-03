@@ -16,6 +16,7 @@ module org.solideinc.solidequerydistributor {
     requires java.desktop;
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
+    opens org.solideinc.solidequerydistributor.Classes to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
     exports org.solideinc.solidequerydistributor.Classes;
