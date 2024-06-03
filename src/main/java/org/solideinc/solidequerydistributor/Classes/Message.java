@@ -4,6 +4,10 @@ public class Message {
     private String message;
     private Boolean isAnswer;
 
+    public Message() {
+        // Default constructor
+    }
+
     public Message(String message, Boolean isAnswer) {
         this.message = message;
         this.isAnswer = isAnswer;

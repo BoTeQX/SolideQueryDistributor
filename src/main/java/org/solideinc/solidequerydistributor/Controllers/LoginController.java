@@ -1,6 +1,5 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,11 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
-
 import java.io.IOException;
-
-import java.io.IOException;
-
 
 public class LoginController {
     @FXML
@@ -28,7 +23,7 @@ public class LoginController {
     private TextField loginPasswordPasswordField;
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         loginButton.setOnAction(event -> {
             try {
                 login();
