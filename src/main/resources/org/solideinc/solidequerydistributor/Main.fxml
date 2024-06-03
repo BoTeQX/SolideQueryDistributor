@@ -35,9 +35,16 @@
                 </ImageView>
             </graphic>
         </Button>
-      <ScrollPane layoutX="16.0" layoutY="50.0" prefHeight="483.0" prefWidth="228.0" style="-fx-background-color: white; -fx-background: white;">
+      <ScrollPane layoutX="16.0" layoutY="62.0" prefHeight="471.0" prefWidth="228.0" style="-fx-background-color: white; -fx-background: white;">
          <content>
-            <VBox fx:id="chatPages" prefHeight="479.0" prefWidth="223.0" style="-fx-background-color: white;" />
+            <VBox fx:id="chatPages" prefHeight="468.0" prefWidth="224.0" style="-fx-background-color: white;">
+               <children>
+                  <Button id="addNewButton" fx:id="addNewButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="221.0" style="-fx-font-size: 14;" styleClass="conversation" text="Nieuwe chat +">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children></VBox>
          </content>
       </ScrollPane>
 
@@ -60,9 +67,13 @@
             <VBox fx:id="chatBox" prefHeight="480.0" prefWidth="583.0" styleClass="chatPane" />
         </ScrollPane>
     </Pane>
-    <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" text="&lt;">
-        <font>
-            <Font size="20.0" />
-        </font>
-    </Button>
+   <Pane focusTraversable="true" prefHeight="600.0" prefWidth="303.0">
+      <children>
+          <Button id="toggleButton" fx:id="toggleButton" layoutX="216.0" layoutY="6.0" mnemonicParsing="false" text="&lt;">
+              <font>
+                  <Font size="20.0" />
+              </font>
+          </Button>
+      </children>
+   </Pane>
 </Pane>

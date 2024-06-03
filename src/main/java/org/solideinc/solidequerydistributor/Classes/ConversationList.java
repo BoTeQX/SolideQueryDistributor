@@ -55,4 +55,22 @@ public class ConversationList {
             e.printStackTrace();
         }
     }
+
+    public static void addConversation(Conversation conversation) {
+        getInstance().conversationList.add(conversation);
+        try {
+            conversation.updateConversation();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeConversation(Conversation conversation) {
+        getInstance().conversationList.remove(conversation);
+        try {
+            Files.deleteIfExists(Paths.get("data/conversations/" + conversation.getId() + ".json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

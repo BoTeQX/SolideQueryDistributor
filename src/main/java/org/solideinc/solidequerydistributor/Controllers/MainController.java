@@ -39,6 +39,8 @@ public class MainController {
     @FXML
     private Button toggleButton;
     @FXML
+    private Button addNewButton;
+    @FXML
     private Circle sendCircle;
     @FXML
     private VBox chatPages;
@@ -47,15 +49,17 @@ public class MainController {
 
     private boolean isSidebarVisible = true;
 
-    private final Conversation tempConv = new Conversation("test");
+    private Conversation currentConversation;
 
     @FXML
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
         toggleButton.setOnAction(this::handleToggleAction);
+        addNewButton.setOnAction(event -> addConversation("Nieuw gesprek"));
         sendButton.setOnAction(event -> {
             try {
-                confirmPrompt(this.tempConv);
+                if (currentConversation != null)
+                    confirmPrompt(this.currentConversation);
             } catch (IOException e) {
                 e.printStackTrace();
                 // Optionally, you can show an error message to the user
@@ -67,15 +71,14 @@ public class MainController {
             if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
                 event.consume();
                 try {
-                    confirmPrompt(this.tempConv);
+                    if (currentConversation != null)
+                        confirmPrompt(this.currentConversation);
                 } catch (IOException e) {
                     e.printStackTrace();
                     // Optionally, you can show an error message to the user
                 }
             }
         });
-
-        addConversation(this.tempConv.getConversationName());
     }
 
     private void confirmPrompt(Conversation conversation) throws IOException {
@@ -145,13 +148,14 @@ public class MainController {
             dialog.setHeaderText("Hernoem het gesprek");
             dialog.setContentText("Naam:");
             dialog.showAndWait().ifPresent(result -> {
-                tempConv.setConversationName(result);
                 nameLabel.setText(result);
             });
         });
 
         contextMenu.getItems().addAll(renameItem, deleteItem);
 
+        currentConversation = new Conversation(name);
+        ConversationList.addConversation(currentConversation);
         chatPages.getChildren().add(pageButton);
     }
 
@@ -220,7 +224,8 @@ public class MainController {
         sendButton.setLayoutX(820);
         sendCircle.setLayoutX(850);
         toggleButton.setText(">");
-        toggleButton.setLayoutX(0);
+        toggleButton.setLayoutX(220);
+        toggleButton.setLayoutY(270);
         chatPane.setPrefWidth(830);
         chatBox.setPrefWidth(825);
     }
@@ -233,6 +238,7 @@ public class MainController {
         sendButton.setLayoutX(562);
         sendCircle.setLayoutX(591);
         toggleButton.setText("<");
+        toggleButton.setLayoutY(0);
         toggleButton.setLayoutX(205);
         chatPane.setPrefWidth(587);
         chatBox.setPrefWidth(583);
