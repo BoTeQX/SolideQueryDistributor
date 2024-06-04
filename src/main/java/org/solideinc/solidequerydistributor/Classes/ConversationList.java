@@ -1,6 +1,7 @@
 package org.solideinc.solidequerydistributor.Classes;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.solideinc.solidequerydistributor.Controllers.MainController;
 import org.solideinc.solidequerydistributor.Util.JsonHandler;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class ConversationList {
@@ -72,5 +74,12 @@ public class ConversationList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Conversation getConversation(UUID id) {
+        return getInstance().conversationList.stream()
+                .filter(conversation -> conversation.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }

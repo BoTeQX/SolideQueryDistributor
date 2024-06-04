@@ -21,11 +21,11 @@ public class Message {
         this.message = message;
     }
 
-    public Boolean getIsAnswer() {
+    public Boolean isAnswer() {
         return isAnswer;
     }
 
-    public void setIsAnswer(Boolean answer) {
+    public void setAnswer(Boolean answer) {
         isAnswer = answer;
     }
 }

@@ -35,7 +35,7 @@
                 </ImageView>
             </graphic>
         </Button>
-      <ScrollPane layoutX="16.0" layoutY="62.0" prefHeight="471.0" prefWidth="228.0" style="-fx-background-color: white; -fx-background: white;">
+      <ScrollPane hbarPolicy="NEVER" layoutX="16.0" layoutY="62.0" prefHeight="471.0" prefWidth="228.0" style="-fx-background-color: white; -fx-background: white;" vbarPolicy="NEVER">
          <content>
             <VBox fx:id="chatPages" prefHeight="468.0" prefWidth="224.0" style="-fx-background-color: white;">
                <children>
@@ -67,9 +67,9 @@
             <VBox fx:id="chatBox" prefHeight="480.0" prefWidth="583.0" styleClass="chatPane" />
         </ScrollPane>
     </Pane>
-   <Pane focusTraversable="true" prefHeight="600.0" prefWidth="303.0">
+   <Pane focusTraversable="true" layoutX="4.0" prefHeight="46.0" prefWidth="260.0">
       <children>
-          <Button id="toggleButton" fx:id="toggleButton" layoutX="216.0" layoutY="6.0" mnemonicParsing="false" text="&lt;">
+          <Button id="toggleButton" fx:id="toggleButton" layoutX="213.0" mnemonicParsing="false" text="&lt;">
               <font>
                   <Font size="20.0" />
               </font>

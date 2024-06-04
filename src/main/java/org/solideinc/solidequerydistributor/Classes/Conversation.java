@@ -27,8 +27,8 @@ public class Conversation {
     public Conversation(
             @JsonProperty("id") String id,
             @JsonProperty("conversationName") String conversationName,
-            @JsonProperty("lastUpdate") Date lastUpdate,
-            @JsonProperty("conversation") List<Message> conversation) {
+            @JsonProperty("date") Date lastUpdate,
+            @JsonProperty("messages") List<Message> conversation) {
         this.id = UUID.fromString(id);
         this.conversationName = conversationName;
         this.lastUpdate = lastUpdate;
@@ -66,7 +66,7 @@ public class Conversation {
     }
 
     public List<Message> getConversation() {
-        return new ArrayList<>(conversation);
+        return conversation;
     }
 
     public void addMessage(String message, Boolean isAnswer) throws IOException {

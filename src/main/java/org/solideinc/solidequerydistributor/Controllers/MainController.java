@@ -12,10 +12,13 @@ import javafx.scene.text.*;
 import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Classes.Conversation;
 import org.solideinc.solidequerydistributor.Classes.ConversationList;
+import org.solideinc.solidequerydistributor.Classes.Message;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
@@ -55,11 +58,11 @@ public class MainController {
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
         toggleButton.setOnAction(this::handleToggleAction);
-        addNewButton.setOnAction(event -> addConversation("Nieuw gesprek"));
+        addNewButton.setOnAction(event -> addConversation("Nieuw gesprek", null));
         sendButton.setOnAction(event -> {
             try {
                 if (currentConversation != null)
-                    confirmPrompt(this.currentConversation);
+                    confirmPrompt();
             } catch (IOException e) {
                 e.printStackTrace();
                 // Optionally, you can show an error message to the user
@@ -72,25 +75,30 @@ public class MainController {
                 event.consume();
                 try {
                     if (currentConversation != null)
-                        confirmPrompt(this.currentConversation);
+                        confirmPrompt();
                 } catch (IOException e) {
                     e.printStackTrace();
                     // Optionally, you can show an error message to the user
                 }
             }
         });
+
+        List<Conversation> conversationList = ConversationList.getInstance().conversationList;
+        for (Conversation conversation : conversationList) {
+            addConversation(conversation.getConversationName(), conversation.getId());
+        }
     }
 
-    private void confirmPrompt(Conversation conversation) throws IOException {
+    private void confirmPrompt() throws IOException {
         LamaAPI.connectToHost();
         String text = chatField.getText().trim();
         if (text == null || text.length() == 0 || waitingForResponse)
             return;
 
-        addMessage(conversation, text, false);
+        addMessage(text, false, true);
         String fakeText = SolideAPI.sendPrompt(text);
         if (fakeText != null) {
-            addMessage(conversation, fakeText, true);
+            addMessage(fakeText, true, true);
             return;
         }
 
@@ -100,7 +108,7 @@ public class MainController {
             CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
                 Platform.runLater(() -> {
                     try {
-                        addMessage(conversation, response, true);
+                        addMessage(response, true, true);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -109,12 +117,12 @@ public class MainController {
             waitingForResponse = true;
         } else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
-                addMessage(conversation, "De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true);
+                addMessage("De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true, true);
             else
-                addMessage(conversation, "The Solide™ Assistant is currently offline, please try again later", true);
+                addMessage("The Solide™ Assistant is currently offline, please try again later", true, true);
         }
     }
-    private void addConversation(String name) {
+    public void addConversation(String name, UUID id) {
         Label nameLabel = new Label(name);
         nameLabel.setPrefWidth(300);
         nameLabel.getStyleClass().add("nameLabel");
@@ -140,6 +148,14 @@ public class MainController {
             chatPages.getChildren().remove(pageButton);
         });
 
+        if (id == null) {
+            currentConversation = new Conversation(name);
+            ConversationList.addConversation(currentConversation);
+            id = currentConversation.getId();
+        } else {
+            currentConversation = ConversationList.getConversation(id);
+        }
+
         MenuItem renameItem = new MenuItem("Hernoemen");
         renameItem.getStyleClass().add("menu-item");
         renameItem.setOnAction(event -> {
@@ -149,20 +165,49 @@ public class MainController {
             dialog.setContentText("Naam:");
             dialog.showAndWait().ifPresent(result -> {
                 nameLabel.setText(result);
+                currentConversation = ConversationList.getConversation(id);
+                if (currentConversation == null) {
+                    System.out.println("Conversation not found");
+                    return;
+                }
+
+                currentConversation.setConversationName(result);
             });
         });
 
         contextMenu.getItems().addAll(renameItem, deleteItem);
 
-        currentConversation = new Conversation(name);
-        ConversationList.addConversation(currentConversation);
+        pageButton.setOnMouseClicked(event -> {
+            chatBox.getChildren().clear();
+            currentConversation = ConversationList.getConversation(id);
+            if (currentConversation == null) {
+                System.out.println("Conversation not found");
+                return;
+            }
+            List<Message> messages = currentConversation.getConversation();
+            for (Message message : messages) {
+                try {
+                    addMessage(message.getMessage(), message.isAnswer(), false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         chatPages.getChildren().add(pageButton);
     }
 
 
-    private void addMessage(Conversation conversation, String text, boolean answer) throws IOException {
+    private void addMessage(String text, boolean answer, boolean save) throws IOException {
+        if (currentConversation == null) {
+            System.out.println("No conversation selected");
+            return;
+        }
+
         text = text.trim();
-        conversation.addMessage(text, answer);
+        if (save)
+            currentConversation.addMessage(text, answer);
+
         Label messageLabel = new Label(text);
         HBox messageBox = new HBox();
 
@@ -224,8 +269,8 @@ public class MainController {
         sendButton.setLayoutX(820);
         sendCircle.setLayoutX(850);
         toggleButton.setText(">");
-        toggleButton.setLayoutX(220);
         toggleButton.setLayoutY(270);
+        toggleButton.setLayoutX(-5);
         chatPane.setPrefWidth(830);
         chatBox.setPrefWidth(825);
     }
@@ -239,7 +284,7 @@ public class MainController {
         sendCircle.setLayoutX(591);
         toggleButton.setText("<");
         toggleButton.setLayoutY(0);
-        toggleButton.setLayoutX(205);
+        toggleButton.setLayoutX(210);
         chatPane.setPrefWidth(587);
         chatBox.setPrefWidth(583);
     }
