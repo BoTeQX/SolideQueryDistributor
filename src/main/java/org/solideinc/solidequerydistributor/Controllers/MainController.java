@@ -65,11 +65,9 @@ public class MainController {
                     confirmPrompt();
             } catch (IOException e) {
                 e.printStackTrace();
-                // Optionally, you can show an error message to the user
             }
         });
 
-        // Handling key pressed event with lambda expression
         chatField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
                 event.consume();
@@ -78,7 +76,6 @@ public class MainController {
                         confirmPrompt();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // Optionally, you can show an error message to the user
                 }
             }
         });
@@ -132,6 +129,8 @@ public class MainController {
 
         ContextMenu contextMenu = new ContextMenu();
         optionsButton.setOnAction(event -> {
+            if (waitingForResponse)
+                return;
             contextMenu.show(optionsButton, Side.BOTTOM, 0, 0);
         });
         contextMenu.getStyleClass().add("contextMenu");
@@ -141,20 +140,13 @@ public class MainController {
         VBox pageButton = new VBox(hBox);
         VBox.setMargin(hBox, new Insets(5, 0, 0, 0));
 
-        MenuItem deleteItem = new MenuItem("Verwijderen");
-        deleteItem.getStyleClass().add("menu-item");
-        deleteItem.getStyleClass().add("delete");
-        deleteItem.setOnAction(event -> {
-            chatPages.getChildren().remove(pageButton);
-        });
-
         if (id == null) {
             currentConversation = new Conversation(name);
             ConversationList.addConversation(currentConversation);
-            id = currentConversation.getId();
         } else {
             currentConversation = ConversationList.getConversation(id);
         }
+        final UUID tid = currentConversation.getId();
 
         MenuItem renameItem = new MenuItem("Hernoemen");
         renameItem.getStyleClass().add("menu-item");
@@ -165,26 +157,51 @@ public class MainController {
             dialog.setContentText("Naam:");
             dialog.showAndWait().ifPresent(result -> {
                 nameLabel.setText(result);
-                currentConversation = ConversationList.getConversation(id);
-                if (currentConversation == null) {
+                final UUID fid = tid;
+                Conversation conversation = ConversationList.getConversation(fid);
+                if (conversation == null) {
                     System.out.println("Conversation not found");
                     return;
                 }
 
-                currentConversation.setConversationName(result);
+                conversation.setConversationName(result);
+                try {
+                    conversation.updateConversation();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
+        });
+
+        MenuItem deleteItem = new MenuItem("Verwijderen");
+        deleteItem.getStyleClass().add("menu-item");
+        deleteItem.getStyleClass().add("delete");
+        deleteItem.setOnAction(event -> {
+            final UUID fid = tid;
+            Conversation conversation = ConversationList.getConversation(fid);
+            if (conversation == null) {
+                System.out.println("Conversation not found");
+                return;
+            }
+            ConversationList.removeConversation(conversation);
+            chatPages.getChildren().remove(pageButton);
         });
 
         contextMenu.getItems().addAll(renameItem, deleteItem);
 
         pageButton.setOnMouseClicked(event -> {
+            if (waitingForResponse)
+                return;
+
             chatBox.getChildren().clear();
-            currentConversation = ConversationList.getConversation(id);
+            final UUID fid = tid;
+            Conversation conversation = ConversationList.getConversation(fid);
             if (currentConversation == null) {
                 System.out.println("Conversation not found");
                 return;
             }
-            List<Message> messages = currentConversation.getConversation();
+
+            List<Message> messages = conversation.getConversation();
             for (Message message : messages) {
                 try {
                     addMessage(message.getMessage(), message.isAnswer(), false);
