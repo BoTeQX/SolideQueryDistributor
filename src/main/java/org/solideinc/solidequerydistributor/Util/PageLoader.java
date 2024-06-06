@@ -28,14 +28,6 @@ public class PageLoader implements PageLoaderInterface {
     }
 
     @Override
-    public void startApplication() {
-            Stage primaryStage = new Stage();
-            setStage(primaryStage);
-            setRootLayout(new Pane());
-            loadFirstPage();
-    }
-
-    @Override
     public void loadPage(String fxmlFile, String title) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));

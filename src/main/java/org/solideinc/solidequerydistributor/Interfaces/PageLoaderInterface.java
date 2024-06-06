@@ -11,7 +11,12 @@ public interface PageLoaderInterface {
 
     void setStage(Stage stage);
 
-    void startApplication();
+    default void startApplication() {
+        Stage primaryStage = new Stage();
+        setStage(primaryStage);
+        setRootLayout(new Pane());
+        loadFirstPage();
+    }
 
     void loadPage(String fxmlFile, String title);
 
