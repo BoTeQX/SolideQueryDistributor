@@ -5,33 +5,30 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.solideinc.solidequerydistributor.Interfaces.PageLoaderInterface;
 import org.solideinc.solidequerydistributor.Main;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class PageLoader {
+public class PageLoader implements PageLoaderInterface {
 
-    public static final String STYLESHEET_PATH = "/org/solideinc/solidequerydistributor/style.css";
-    private static Pane rootLayout;
-    private static Stage stage;
+    public final String STYLESHEET_PATH = getStyleSheet();
+    private Pane rootLayout;
+    private Stage stage;
 
-    public static void setRootLayout(Pane rootLayout) {
-        PageLoader.rootLayout = rootLayout;
+    @Override
+    public void setRootLayout(Pane rootLayout) {
+        this.rootLayout = rootLayout;
     }
 
-    public static void setStage(Stage stage) {
-        PageLoader.stage = stage;
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
-    public static void startApplication() {
-            Stage primaryStage = new Stage();
-            setStage(primaryStage);
-            setRootLayout(new Pane());
-            loadLoginPage();
-    }
-
-    private static void loadPage(String fxmlFile, String title) {
+    @Override
+    public void loadPage(String fxmlFile, String title) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
             rootLayout = fxmlLoader.load();
@@ -47,15 +44,20 @@ public class PageLoader {
         }
     }
 
-    public static void loadLoginPage() {
+    @Override
+    public void loadFirstPage() {
+        loadLoginPage();
+    }
+
+    public void loadLoginPage() {
         loadPage("Login.fxml", "Solide™ Query Distributor - Login");
     }
 
-    public static void loadMainPage() {
+    public void loadMainPage() {
         loadPage("Main.fxml", "Solide™ Query Distributor - Main");
     }
 
-    public static void loadAccountPage() {
+    public void loadAccountPage() {
         loadPage("Account.fxml", "Solide™ Query Distributor - Account");
     }
 }

@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Classes.Conversation;
 import org.solideinc.solidequerydistributor.Classes.ConversationList;
 import org.solideinc.solidequerydistributor.Classes.Message;
+import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
@@ -57,7 +58,6 @@ public class MainController {
     @FXML
     private Circle offlineToggleButtonCircle;
 
-
     private boolean waitingForResponse = false;
 
     private boolean isSidebarVisible = true;
@@ -65,7 +65,9 @@ public class MainController {
     private Conversation currentConversation;
 
     public static boolean offlineMode = true;
+
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
+
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
 
     @FXML
@@ -323,10 +325,10 @@ public class MainController {
     }
 
     private void logout(){
-        PageLoader.loadLoginPage();
+        Main.PAGE_LOADER.loadLoginPage();
     }
     private void accountPage(){
-        PageLoader.loadAccountPage();
+        Main.PAGE_LOADER.loadAccountPage();
     }
 
     private void handleToggleAction(ActionEvent event) {

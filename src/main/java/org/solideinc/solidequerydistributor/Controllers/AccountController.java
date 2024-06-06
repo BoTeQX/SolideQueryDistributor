@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
+import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
@@ -32,6 +33,7 @@ public class AccountController {
     private Button updateAccountButton;
     @FXML
     private Button exitAccountPageButton;
+
 
     private User user = LoginController.loggedInUser;
     @FXML
@@ -107,7 +109,7 @@ public class AccountController {
         updateConfirmPasswordPasswordField.setText("");
     }
     private void mainPage(){
-        PageLoader.loadMainPage();
+        Main.PAGE_LOADER.loadMainPage();
     }
 
     private void createAlertDialog(String content) {
