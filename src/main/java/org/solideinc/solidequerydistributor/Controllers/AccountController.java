@@ -8,10 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
-import org.solideinc.solidequerydistributor.Util.SolideAPI;
-
-import javax.imageio.IIOException;
-import java.awt.*;
 import java.io.IOException;
 public class AccountController {
     @FXML
@@ -64,7 +60,7 @@ public class AccountController {
             try {
                 UserController.updateUsers();
             }catch (IOException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
         createConfirmDialog("Account informatie geupdate");
@@ -75,7 +71,7 @@ public class AccountController {
         try {
             UserController.updateUsers();
         }catch (IOException e){
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -99,7 +95,7 @@ public class AccountController {
                 UserController.updateUsers();
                 createConfirmDialog("Wachtwoord geupdate");
             }catch (IOException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
         oldPasswordPasswordField.setText("");

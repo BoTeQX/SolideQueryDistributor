@@ -96,8 +96,8 @@ public class MainController {
             }
         });
 
-        List<Conversation> conversationList = ConversationList.getInstance().conversationList;
-        for (Conversation conversation : conversationList) {
+        List<Conversation> conversationsList = ConversationList.getInstance().conversationsList;
+        for (Conversation conversation : conversationsList) {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
 

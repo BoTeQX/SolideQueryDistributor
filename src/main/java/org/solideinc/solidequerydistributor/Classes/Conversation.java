@@ -14,13 +14,13 @@ public class Conversation {
     private UUID id;
     private String conversationName;
     private Date lastUpdate;
-    private final List<Message> conversation;
+    private final List<Message> messageList;
 
     public Conversation(String conversationName) {
         this.id = UUID.randomUUID();
         this.conversationName = conversationName;
         this.lastUpdate = new Date();
-        this.conversation = new ArrayList<>();
+        this.messageList = new ArrayList<>();
     }
 
     @JsonCreator
@@ -28,11 +28,11 @@ public class Conversation {
             @JsonProperty("id") String id,
             @JsonProperty("conversationName") String conversationName,
             @JsonProperty("date") Date lastUpdate,
-            @JsonProperty("messages") List<Message> conversation) {
+            @JsonProperty("messages") List<Message> messageList) {
         this.id = UUID.fromString(id);
         this.conversationName = conversationName;
         this.lastUpdate = lastUpdate;
-        this.conversation = conversation;
+        this.messageList = messageList;
     }
 
 
@@ -66,11 +66,11 @@ public class Conversation {
     }
 
     public List<Message> getConversation() {
-        return conversation;
+        return messageList;
     }
 
     public void addMessage(String message, Boolean isAnswer) throws IOException {
-        conversation.add(new Message(message, isAnswer));
+        messageList.add(new Message(message, isAnswer));
         this.lastUpdate = new Date();
         updateConversation();
     }

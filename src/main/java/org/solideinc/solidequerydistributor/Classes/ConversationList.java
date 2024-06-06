@@ -1,7 +1,6 @@
 package org.solideinc.solidequerydistributor.Classes;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.solideinc.solidequerydistributor.Controllers.MainController;
 import org.solideinc.solidequerydistributor.Util.JsonHandler;
 
 import java.io.IOException;
@@ -15,13 +14,13 @@ import java.util.stream.Stream;
 
 public class ConversationList {
     private static ConversationList instance;
-    public ArrayList<Conversation> conversationList;
+    public ArrayList<Conversation> conversationsList;
 
     public ConversationList() {
         if (conversationListExists()) {
             loadConversations();
         } else {
-            conversationList = new ArrayList<>();
+            conversationsList = new ArrayList<>();
         }
     }
 
@@ -42,7 +41,7 @@ public class ConversationList {
     }
 
     private void loadConversations() {
-        conversationList = new ArrayList<>();
+        conversationsList = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(Paths.get("data/conversations"))) {
             List<String> files = paths
                     .filter(Files::isRegularFile)
@@ -51,7 +50,7 @@ public class ConversationList {
             for (String file : files) {
                 file = file.replace("data\\", "");
                 Conversation conversation = JsonHandler.readJson(new TypeReference<Conversation>() {}, file);
-                conversationList.add(conversation);
+                conversationsList.add(conversation);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class ConversationList {
     }
 
     public static void addConversation(Conversation conversation) {
-        getInstance().conversationList.add(conversation);
+        getInstance().conversationsList.add(conversation);
         try {
             conversation.updateConversation();
         } catch (IOException e) {
@@ -68,7 +67,7 @@ public class ConversationList {
     }
 
     public static void removeConversation(Conversation conversation) {
-        getInstance().conversationList.remove(conversation);
+        getInstance().conversationsList.remove(conversation);
         try {
             Files.deleteIfExists(Paths.get("data/conversations/" + conversation.getId() + ".json"));
         } catch (IOException e) {
@@ -77,7 +76,7 @@ public class ConversationList {
     }
 
     public static Conversation getConversation(UUID id) {
-        return getInstance().conversationList.stream()
+        return getInstance().conversationsList.stream()
                 .filter(conversation -> conversation.getId().equals(id))
                 .findFirst()
                 .orElse(null);
