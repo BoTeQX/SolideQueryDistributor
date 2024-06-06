@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.solideinc.solidequerydistributor.Main;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class PageLoader {
 
@@ -35,7 +36,7 @@ public class PageLoader {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
             rootLayout = fxmlLoader.load();
             Scene scene = new Scene(rootLayout);
-            scene.getStylesheets().add(Main.class.getResource(STYLESHEET_PATH).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource(STYLESHEET_PATH)).toExternalForm());
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();
@@ -52,5 +53,9 @@ public class PageLoader {
 
     public static void loadMainPage() {
         loadPage("Main.fxml", "Solide™ Query Distributor - Main");
+    }
+
+    public static void loadAccountPage() {
+        loadPage("Account.fxml", "Solide™ Query Distributor - Account");
     }
 }

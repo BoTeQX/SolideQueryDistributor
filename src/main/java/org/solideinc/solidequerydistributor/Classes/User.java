@@ -1,5 +1,6 @@
 package org.solideinc.solidequerydistributor.Classes;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -73,6 +74,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public void updatePassword(String password) {
+        this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
 
     public String getLanguagePreference() {

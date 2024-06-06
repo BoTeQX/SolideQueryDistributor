@@ -1,5 +1,7 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
+import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
@@ -27,6 +30,8 @@ import org.solideinc.solidequerydistributor.Util.PageLoader;
 public class MainController {
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button accountPageButton;
     @FXML
     private VBox chatBox;
     @FXML
@@ -47,6 +52,11 @@ public class MainController {
     private Circle sendCircle;
     @FXML
     private VBox chatPages;
+    @FXML
+    private ToggleButton offlineToggleButton;
+    @FXML
+    private Circle offlineToggleButtonCircle;
+
 
     private boolean waitingForResponse = false;
 
@@ -54,10 +64,16 @@ public class MainController {
 
     private Conversation currentConversation;
 
+    public static boolean offlineMode = true;
+    private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
+    private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
+
     @FXML
     private void initialize() {
         logoutButton.setOnAction(event -> logout());
+        accountPageButton.setOnAction(event -> accountPage());
         toggleButton.setOnAction(this::handleToggleAction);
+
         addNewButton.setOnAction(event -> addConversation("Nieuw gesprek", null));
         sendButton.setOnAction(event -> {
             try {
@@ -84,12 +100,44 @@ public class MainController {
         for (Conversation conversation : conversationList) {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
+
+        sendButton.setOnAction(event -> confirmPrompt());
+        chatField.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
+        SolideAPI.setPromptsBasedOnLanguagePreference();
+        setupOfflineToggleButton();
+    }
+
+    private void setupOfflineToggleButton() {
+        offlineToggleButton.setTooltip(offlineTooltip);
+        offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
+    }
+
+    private void handleOfflineToggleAction() {
+        TranslateTransition transition = createTransition();
+        if (offlineToggleButton.isSelected()) {
+            transition.setToX(19);
+            offlineMode = false;
+            setTooltip(onlineTooltip);
+        } else {
+            transition.setToX(0);
+            offlineMode = true;
+            setTooltip(offlineTooltip);
+        }
+        transition.play();
+    }
+
+    private TranslateTransition createTransition() {
+        return new TranslateTransition(Duration.seconds(0.25), offlineToggleButtonCircle);
+    }
+
+    private void setTooltip(Tooltip tooltip) {
+        offlineToggleButton.setTooltip(tooltip);
     }
 
     private void confirmPrompt() throws IOException {
         LamaAPI.connectToHost();
         String text = chatField.getText().trim();
-        if (text == null || text.length() == 0 || waitingForResponse)
+        if (text.isEmpty() || waitingForResponse)
             return;
 
         addMessage(text, false, true);
@@ -102,21 +150,19 @@ public class MainController {
         if (LamaAPI.isConnected()) {
             chatField.setText("Wachten op reactie...");
             chatField.setDisable(true);
-            CompletableFuture.supplyAsync(() -> LamaAPI.sendPrompt(text)).thenAccept(response -> {
-                Platform.runLater(() -> {
-                    try {
-                        addMessage(response, true, true);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            });
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    return LamaAPI.sendPrompt(text);
+                } catch (OllamaBaseException | InterruptedException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).thenAccept(response -> Platform.runLater(() -> addMessage(response, true)));
             waitingForResponse = true;
         } else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
-                addMessage("De Solide™ Assistent is momenteel buiten gebruik, probeer het later nogmaals", true, true);
+                addMessage("De Solide™ Assistent is momenteel offline. probeer het later nogmaals, of schakel de online modus in.", true);
             else
-                addMessage("The Solide™ Assistant is currently offline, please try again later", true, true);
+                addMessage("The Solide™ Assistant is currently offline. please try again later, or enable online mode.", true);
         }
     }
     public void addConversation(String name, UUID id) {
@@ -267,6 +313,9 @@ public class MainController {
 
     private void logout(){
         PageLoader.loadLoginPage();
+    }
+    private void accountPage(){
+        PageLoader.loadAccountPage();
     }
 
     private void handleToggleAction(ActionEvent event) {

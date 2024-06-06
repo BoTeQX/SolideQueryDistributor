@@ -10,8 +10,6 @@ import org.solideinc.solidequerydistributor.Util.PageLoader;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML
-    private Pane RootLayout;
 
     @FXML
     private Button loginButton;
@@ -22,8 +20,12 @@ public class LoginController {
     @FXML
     private TextField loginPasswordPasswordField;
 
+    public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
+
     @FXML
-    private void initialize() {
+
+    private void initialize() throws IOException {
+//        UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
         loginButton.setOnAction(event -> {
             try {
                 login();
@@ -58,24 +60,24 @@ public class LoginController {
 
     private boolean checkUsernameField(String username) {
         if (username.isEmpty()) {
-            if (!loginUsernameTextField.getStyleClass().contains("text-field-error")) {
-                loginUsernameTextField.getStyleClass().add("text-field-error");
+            if (!loginUsernameTextField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
+                loginUsernameTextField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
             }
             return true;
         } else {
-            loginUsernameTextField.getStyleClass().remove("text-field-error");
+            loginUsernameTextField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
             return false;
         }
     }
 
     private boolean checkPasswordField(String password) {
         if (password.isEmpty()) {
-            if (!loginPasswordPasswordField.getStyleClass().contains("text-field-error")) {
-                loginPasswordPasswordField.getStyleClass().add("text-field-error");
+            if (!loginPasswordPasswordField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
+                loginPasswordPasswordField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
             }
             return true;
         } else {
-            loginPasswordPasswordField.getStyleClass().remove("text-field-error");
+            loginPasswordPasswordField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
             return false;
         }
     }

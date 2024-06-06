@@ -21,7 +21,8 @@
         <ImageView fitHeight="19.0" fitWidth="23.0" layoutX="31.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@/logo.png" />
         </ImageView>
-        <Button layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" styleClass="accountPageButton">
+        <Button fx:id="accountPageButton" layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" styleClass="accountPageButton">
+
             <graphic>
                 <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="accountPageButton">
                     <Image url="@../../../pfpic.jpg" />
@@ -66,6 +67,11 @@
         <ScrollPane fx:id="chatPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="36.0" prefHeight="483.0" prefWidth="587.0" styleClass="chatPane">
             <VBox fx:id="chatBox" prefHeight="480.0" prefWidth="583.0" styleClass="chatPane" />
         </ScrollPane>
+      <ToggleButton id="offlineToggleButton"  fx:id="offlineToggleButton" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="80.0" text="offline">
+          <graphic>
+              <Circle fx:id="offlineToggleButtonCircle" radius="10.0"/>
+          </graphic>
+      </ToggleButton>
     </Pane>
    <Pane focusTraversable="true" layoutX="4.0" prefHeight="46.0" prefWidth="260.0">
       <children>
