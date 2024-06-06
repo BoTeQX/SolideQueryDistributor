@@ -22,6 +22,7 @@
             <Image url="@/logo.png" />
         </ImageView>
         <Button fx:id="accountPageButton" layoutX="9.0" layoutY="537.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="23.0" styleClass="accountPageButton">
+
             <graphic>
                 <ImageView fitHeight="44.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="accountPageButton">
                     <Image url="@../../../pfpic.jpg" />
@@ -35,6 +36,18 @@
                 </ImageView>
             </graphic>
         </Button>
+      <ScrollPane hbarPolicy="NEVER" layoutX="16.0" layoutY="62.0" prefHeight="471.0" prefWidth="228.0" style="-fx-background-color: white; -fx-background: white;" vbarPolicy="NEVER">
+         <content>
+            <VBox fx:id="chatPages" prefHeight="468.0" prefWidth="224.0" style="-fx-background-color: white;">
+               <children>
+                  <Button id="addNewButton" fx:id="addNewButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="221.0" style="-fx-font-size: 14;" styleClass="conversation" text="Nieuwe chat +">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children></VBox>
+         </content>
+      </ScrollPane>
 
     </Pane>
     <Pane id="mainContent" fx:id="mainContent" layoutX="260.0" prefHeight="600.0" prefWidth="640.0">
@@ -60,9 +73,13 @@
           </graphic>
       </ToggleButton>
     </Pane>
-    <Button id="toggleButton" fx:id="toggleButton" layoutX="205.0" layoutY="273.0" mnemonicParsing="false" text="&lt;">
-        <font>
-            <Font size="20.0" />
-        </font>
-    </Button>
+   <Pane focusTraversable="true" layoutX="4.0" prefHeight="46.0" prefWidth="260.0">
+      <children>
+          <Button id="toggleButton" fx:id="toggleButton" layoutX="213.0" mnemonicParsing="false" text="&lt;">
+              <font>
+                  <Font size="20.0" />
+              </font>
+          </Button>
+      </children>
+   </Pane>
 </Pane>

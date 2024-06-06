@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
-
 import java.io.IOException;
 
 public class LoginController {
@@ -23,6 +23,7 @@ public class LoginController {
     public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
 
     @FXML
+
     private void initialize() throws IOException {
 //        UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
         loginButton.setOnAction(event -> {
