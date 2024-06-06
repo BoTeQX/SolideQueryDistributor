@@ -10,11 +10,14 @@ import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static final PageLoader PAGE_LOADER = new PageLoader();
+
     @Override
     public void start(Stage stage) {
         Pane rootLayout = new Pane();
-        PageLoader.setRootLayout(rootLayout);
-        PageLoader.startApplication();
+        PAGE_LOADER.setRootLayout(rootLayout);
+        PAGE_LOADER.startApplication();
     }
 
     public static void main(String[] args) {
