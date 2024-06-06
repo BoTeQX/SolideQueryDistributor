@@ -40,4 +40,3 @@ build/
 /.idea/sonarlint
 *.pb
 /data/conversations/*.json
-.idea/misc.xml
