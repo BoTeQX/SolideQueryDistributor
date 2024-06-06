@@ -101,8 +101,13 @@ public class MainController {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
 
-        sendButton.setOnAction(event -> confirmPrompt());
-        chatField.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
+        sendButton.setOnAction(event -> {
+            try {
+                confirmPrompt();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         SolideAPI.setPromptsBasedOnLanguagePreference();
         setupOfflineToggleButton();
     }
@@ -156,13 +161,19 @@ public class MainController {
                 } catch (OllamaBaseException | InterruptedException | IOException e) {
                     throw new RuntimeException(e);
                 }
-            }).thenAccept(response -> Platform.runLater(() -> addMessage(response, true)));
+            }).thenAccept(response -> Platform.runLater(() -> {
+                try {
+                    addMessage(response, true, true);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
             waitingForResponse = true;
         } else {
             if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl"))
-                addMessage("De Solide™ Assistent is momenteel offline. probeer het later nogmaals, of schakel de online modus in.", true);
+                addMessage("De Solide™ Assistent is momenteel offline. probeer het later nogmaals, of schakel de online modus in.", true, true);
             else
-                addMessage("The Solide™ Assistant is currently offline. please try again later, or enable online mode.", true);
+                addMessage("The Solide™ Assistant is currently offline. please try again later, or enable online mode.", true, true);
         }
     }
     public void addConversation(String name, UUID id) {

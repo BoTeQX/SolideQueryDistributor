@@ -25,7 +25,7 @@ public class LoginController {
     @FXML
 
     private void initialize() throws IOException {
-//        UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
+        //UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
         loginButton.setOnAction(event -> {
             try {
                 login();
