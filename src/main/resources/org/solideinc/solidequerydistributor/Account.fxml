@@ -45,7 +45,6 @@
             <TextField id="updateEmailTextField" fx:id="updateEmailTextField" alignment="CENTER" focusTraversable="false" layoutX="61.0" layoutY="243.0" prefHeight="38.0" prefWidth="182.0" promptText="E-Mail" />
             <Label alignment="CENTER" layoutX="93.0" layoutY="171.0" text="Gebruiker informatie" textFill="WHITE" />
             <Label alignment="CENTER" layoutX="433.0" layoutY="245.0" text="Nieuw wachtwoord" textAlignment="CENTER" textFill="WHITE" />
-            <Label alignment="CENTER" layoutX="16.0" layoutY="14.0" text="Taal voorkeur" textFill="WHITE" />
             <Button id="exitAccountPageButton" fx:id="exitAccountPageButton" alignment="CENTER" layoutX="597.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: black;" text="X" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -54,7 +53,6 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Button>
-            <ComboBox id="updateLanguageComboBox" fx:id="updateLanguageComboBox" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="78.0" visibleRowCount="2" />
             <Line endX="-10.0" endY="-308.6000061035156" layoutX="330.0" layoutY="440.0" startX="-10.0" startY="24.399993896484375" stroke="WHITE" />
             <PasswordField id="oldPasswordPasswordField" fx:id="oldPasswordPasswordField" alignment="CENTER" layoutX="394.0" layoutY="195.0" prefHeight="38.0" prefWidth="180.0" promptText="Oud wachtwoord" />
             <Label layoutX="438.0" layoutY="171.0" text="Oud wachtwoord" textFill="WHITE" />

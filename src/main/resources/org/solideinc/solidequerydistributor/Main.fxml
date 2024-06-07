@@ -67,11 +67,12 @@
         <ScrollPane fx:id="chatPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="36.0" prefHeight="483.0" prefWidth="587.0" styleClass="chatPane">
             <VBox fx:id="chatBox" prefHeight="480.0" prefWidth="583.0" styleClass="chatPane" />
         </ScrollPane>
-      <ToggleButton id="offlineToggleButton"  fx:id="offlineToggleButton" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="80.0" text="offline">
+      <ToggleButton id="offlineToggleButton" fx:id="offlineToggleButton" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="80.0" text="offline">
           <graphic>
-              <Circle fx:id="offlineToggleButtonCircle" radius="10.0"/>
+              <Circle fx:id="offlineToggleButtonCircle" radius="10.0" />
           </graphic>
       </ToggleButton>
+      <ComboBox id="updateLanguageComboBox" fx:id="updateLanguageComboBox" layoutX="552.0" layoutY="18.0" prefHeight="25.0" prefWidth="78.0" visibleRowCount="2" />
     </Pane>
    <Pane focusTraversable="true" layoutX="4.0" prefHeight="46.0" prefWidth="260.0">
       <children>

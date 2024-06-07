@@ -2,6 +2,7 @@ package org.solideinc.solidequerydistributor.Controllers;
 
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -29,6 +30,8 @@ import javafx.scene.shape.Circle;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 public class MainController {
+    @FXML
+    private ComboBox<String> updateLanguageComboBox;
     @FXML
     private Button logoutButton;
     @FXML
@@ -72,6 +75,12 @@ public class MainController {
 
     @FXML
     private void initialize() {
+        updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
+        ObservableList<String> options = updateLanguageComboBox.getItems();
+        options.add("nl");
+        options.add("en");
+        updateLanguageComboBox.setValue(LoginController.getLoggedInUser().getLanguagePreference());
+
         logoutButton.setOnAction(event -> logout());
         accountPageButton.setOnAction(event -> accountPage());
         toggleButton.setOnAction(this::handleToggleAction);
@@ -112,6 +121,16 @@ public class MainController {
         });
         SolideAPI.setPromptsBasedOnLanguagePreference();
         setupOfflineToggleButton();
+    }
+
+    private void updateLanguageSetting(){
+        LoginController.getLoggedInUser().setLanguagePreference(updateLanguageComboBox.getValue());
+        try {
+            UserController.updateUsers();
+            SolideAPI.setPromptsBasedOnLanguagePreference();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     private void setupOfflineToggleButton() {

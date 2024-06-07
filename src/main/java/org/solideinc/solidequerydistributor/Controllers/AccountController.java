@@ -18,8 +18,6 @@ public class AccountController {
     @FXML
     private PasswordField oldPasswordPasswordField;
     @FXML
-    private ComboBox<String> updateLanguageComboBox;
-    @FXML
     private Button changePasswordButton;
     @FXML
     private TextField updateUsernameTextField;
@@ -42,14 +40,8 @@ public class AccountController {
         changePasswordButton.setOnAction(event -> changePassword());
         exitAccountPageButton.setOnAction(event -> mainPage());
 
-        updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
-
         updateUsernameTextField.setText(user.getUsername());
         updateEmailTextField.setText(user.getEmail());
-        ObservableList<String>  options = updateLanguageComboBox.getItems();
-        options.add("nl");
-        options.add("en");
-        updateLanguageComboBox.setValue(user.getLanguagePreference());
     }
     private void saveAccountInformation(){
         if (updateUsernameTextField.getText().equals(user.getUsername()) && updateEmailTextField.getText().equals(user.getEmail())){
@@ -70,15 +62,6 @@ public class AccountController {
             }
         }
         createConfirmDialog("Account informatie geupdate");
-    }
-
-    private void updateLanguageSetting(){
-        user.setLanguagePreference(updateLanguageComboBox.getValue());
-        try {
-            UserController.updateUsers();
-        }catch (IOException e){
-            throw new RuntimeException(e);
-        }
     }
 
     private void changePassword(){
