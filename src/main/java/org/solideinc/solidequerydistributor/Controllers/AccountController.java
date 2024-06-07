@@ -29,7 +29,7 @@ public class AccountController {
     @FXML
     private Button exitAccountPageButton;
 
-    private User user = LoginController.loggedInUser;
+    private User user = LoginController.getLoggedInUser();
     @FXML
     private void initialize() {
         updateAccountButton.setOnAction(event -> saveAccountInformation());

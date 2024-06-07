@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class ConversationList {
     private static ConversationList instance;
-    public ArrayList<Conversation> conversationsList;
+    private ArrayList<Conversation> conversationsList;
 
     public ConversationList() {
         if (conversationListExists()) {
@@ -80,5 +80,9 @@ public class ConversationList {
                 .filter(conversation -> conversation.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static List<Conversation> getConversations() {
+        return getInstance().conversationsList;
     }
 }

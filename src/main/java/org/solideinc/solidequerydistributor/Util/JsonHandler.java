@@ -9,6 +9,10 @@ import java.io.IOException;
 public class JsonHandler {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    private JsonHandler() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static <T> T readJson(TypeReference<T> typeReference, String file) throws IOException {
         return objectMapper.readValue(new File("data/" + file), typeReference);
     }

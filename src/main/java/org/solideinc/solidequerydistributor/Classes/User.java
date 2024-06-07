@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class User {
@@ -39,9 +38,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.languagePreference = languagePreference;
-        this.conversationIds = Stream.of(conversationIds)
-                .map(UUID::fromString)
-                .collect(Collectors.toList());
+        this.conversationIds = Stream.of(conversationIds).map(UUID::fromString).toList();
     }
 
     public UUID getId() {

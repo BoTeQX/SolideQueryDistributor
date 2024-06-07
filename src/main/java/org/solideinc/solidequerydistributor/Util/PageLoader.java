@@ -16,6 +16,10 @@ public class PageLoader {
     private static Pane rootLayout;
     private static Stage stage;
 
+    private PageLoader() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void setRootLayout(Pane rootLayout) {
         PageLoader.rootLayout = rootLayout;
     }

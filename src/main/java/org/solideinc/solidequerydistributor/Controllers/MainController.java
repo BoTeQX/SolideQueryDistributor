@@ -19,7 +19,6 @@ import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,7 +63,7 @@ public class MainController {
 
     private Conversation currentConversation;
 
-    public static boolean offlineMode = true;
+    private static boolean offlineMode = true;
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
 
@@ -77,8 +76,7 @@ public class MainController {
         addNewButton.setOnAction(event -> addConversation("Nieuw gesprek", null));
         sendButton.setOnAction(event -> {
             try {
-                if (currentConversation != null)
-                    confirmPrompt();
+                confirmPrompt();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,15 +86,14 @@ public class MainController {
             if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
                 event.consume();
                 try {
-                    if (currentConversation != null)
-                        confirmPrompt();
+                    confirmPrompt();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        List<Conversation> conversationsList = ConversationList.getInstance().conversationsList;
+        List<Conversation> conversationsList = ConversationList.getConversations();
         for (Conversation conversation : conversationsList) {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
@@ -105,7 +102,7 @@ public class MainController {
             try {
                 confirmPrompt();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
         });
         SolideAPI.setPromptsBasedOnLanguagePreference();
@@ -121,11 +118,11 @@ public class MainController {
         TranslateTransition transition = createTransition();
         if (offlineToggleButton.isSelected()) {
             transition.setToX(19);
-            offlineMode = false;
+            setOfflineMode(false);
             setTooltip(onlineTooltip);
         } else {
             transition.setToX(0);
-            offlineMode = true;
+            setOfflineMode(true);
             setTooltip(offlineTooltip);
         }
         transition.play();
@@ -158,14 +155,14 @@ public class MainController {
             CompletableFuture.supplyAsync(() -> {
                 try {
                     return LamaAPI.sendPrompt(text);
-                } catch (OllamaBaseException | InterruptedException | IOException e) {
-                    throw new RuntimeException(e);
+                } catch (OllamaBaseException | IOException | InterruptedException e ) {
+                    throw new IllegalStateException(e);
                 }
             }).thenAccept(response -> Platform.runLater(() -> {
                 try {
                     addMessage(response, true, true);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new IllegalStateException(e);
                 }
             }));
             waitingForResponse = true;
@@ -225,7 +222,7 @@ public class MainController {
                 try {
                     conversation.updateConversation();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new IllegalStateException(e);
                 }
             });
         });
@@ -258,7 +255,7 @@ public class MainController {
                 return;
             }
 
-            List<Message> messages = conversation.getConversation();
+            List<Message> messages = conversation.getMessages();
             for (Message message : messages) {
                 try {
                     addMessage(message.getMessage(), message.isAnswer(), false);
@@ -364,5 +361,13 @@ public class MainController {
         toggleButton.setLayoutX(210);
         chatPane.setPrefWidth(587);
         chatBox.setPrefWidth(583);
+    }
+
+    public static boolean isOfflineMode() {
+        return offlineMode;
+    }
+
+    public static void setOfflineMode(boolean offlineMode) {
+        MainController.offlineMode = offlineMode;
     }
 }
