@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -21,15 +23,14 @@ import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 public class MainController {
+    public Pane RootLayout;
     @FXML
     private ComboBox<String> updateLanguageComboBox;
     @FXML
@@ -60,10 +61,21 @@ public class MainController {
     private ToggleButton offlineToggleButton;
     @FXML
     private Circle offlineToggleButtonCircle;
+    @FXML
+    private ImageView connectionSymbol;
+    @FXML
+    private Label ConversationTitle;
+
+   Image connectionImage = new Image("/connectionImage.png");
+
+    Image connectionNotImage = new Image("/connectionNotImage.png");
+
 
     private boolean waitingForResponse = false;
 
     private boolean isSidebarVisible = true;
+
+
 
     private Conversation currentConversation;
 
@@ -144,10 +156,12 @@ public class MainController {
             transition.setToX(19);
             offlineMode = false;
             setTooltip(onlineTooltip);
+            connectionSymbol.setImage(connectionImage);
         } else {
             transition.setToX(0);
             offlineMode = true;
             setTooltip(offlineTooltip);
+            connectionSymbol.setImage(connectionNotImage);
         }
         transition.play();
     }
@@ -243,6 +257,7 @@ public class MainController {
                 }
 
                 conversation.setConversationName(result);
+                ConversationTitle.setText(conversation.getConversationName());
                 try {
                     conversation.updateConversation();
                 } catch (IOException e) {
@@ -278,6 +293,8 @@ public class MainController {
                 System.out.println("Conversation not found");
                 return;
             }
+
+            ConversationTitle.setText(conversation.getConversationName());
 
             List<Message> messages = conversation.getConversation();
             for (Message message : messages) {

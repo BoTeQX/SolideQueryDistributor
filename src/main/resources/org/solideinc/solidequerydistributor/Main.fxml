@@ -80,6 +80,16 @@
           </graphic>
       </ToggleButton>
       <ComboBox id="updateLanguageComboBox" fx:id="updateLanguageComboBox" layoutX="552.0" layoutY="18.0" prefHeight="25.0" prefWidth="78.0" visibleRowCount="2" />
+      <ImageView fx:id="connectionSymbol" fitHeight="28.0" fitWidth="59.0" layoutX="71.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/connectionNotImage.png" />
+         </image>
+      </ImageView>
+      <Label id="conversationTitle" layoutX="116.0" layoutY="15.0" prefHeight="43.0" prefWidth="417.0" text="" fx:id="ConversationTitle">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
     </Pane>
    <Pane focusTraversable="true" layoutX="4.0" prefHeight="46.0" prefWidth="260.0">
       <children>

@@ -161,6 +161,13 @@
     -fx-vbar-policy: never;
 }
 
+#conversationTitle {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+    -fx-font-weight: BOLD;
+}
+
 /* Error style */
 .text-field-error {
     -fx-border-color: red;
