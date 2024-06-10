@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
 import java.io.IOException;
 
 public class LoginController {

@@ -30,7 +30,8 @@ import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 
 public class MainController {
-    public Pane RootLayout;
+    @FXML
+    public Pane rootLayout;
     @FXML
     private ComboBox<String> updateLanguageComboBox;
     @FXML
@@ -64,7 +65,7 @@ public class MainController {
     @FXML
     private ImageView connectionSymbol;
     @FXML
-    private Label ConversationTitle;
+    private Label conversationTitle;
 
    Image connectionImage = new Image("/connectionImage.png");
 
@@ -139,7 +140,7 @@ public class MainController {
             UserController.updateUsers();
             SolideAPI.setPromptsBasedOnLanguagePreference();
         }catch (IOException e){
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
@@ -296,7 +297,7 @@ public class MainController {
 
         conversation.setConversationName(result);
         if (currentConversation.getId().equals(id))
-            ConversationTitle.setText(result);
+            conversationTitle.setText(result);
 
         try {
             conversation.updateConversation();
@@ -363,7 +364,7 @@ public class MainController {
                     e.printStackTrace();
                 }
             });
-            ConversationTitle.setText(conversation.getConversationName());
+            conversationTitle.setText(conversation.getConversationName());
             showChat();
         });
     }
@@ -479,7 +480,7 @@ public class MainController {
         sendCircle.setVisible(false);
         updateLanguageComboBox.setVisible(false);
         connectionSymbol.setVisible(false);
-        ConversationTitle.setVisible(false);
+        conversationTitle.setVisible(false);
     }
 
     private void showChat() {
@@ -490,7 +491,7 @@ public class MainController {
         sendCircle.setVisible(true);
         updateLanguageComboBox.setVisible(true);
         connectionSymbol.setVisible(true);
-        ConversationTitle.setVisible(true);
+        conversationTitle.setVisible(true);
     }
 
     public static boolean isOfflineMode() {

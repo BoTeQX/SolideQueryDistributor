@@ -1,14 +1,12 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
 import java.io.IOException;
 public class AccountController {
     @FXML
