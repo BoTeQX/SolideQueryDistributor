@@ -59,15 +59,6 @@ public class AccountController {
         createConfirmDialog("Account informatie geupdate");
     }
 
-    private void updateLanguageSetting(){
-        user.setLanguagePreference(updateLanguageComboBox.getValue());
-        try {
-            UserController.updateUsers();
-        }catch (IOException e){
-            throw new IllegalArgumentException(e);
-        }
-    }
-
     private void changePassword(){
         BCrypt.Result result = BCrypt.verifyer().verify(oldPasswordPasswordField.getText().toCharArray(), user.getPassword());
         if (!result.verified){

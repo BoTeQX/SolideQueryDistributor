@@ -178,7 +178,7 @@ public class MainController {
         if (text.isEmpty() || waitingForResponse) return;
 
         addMessage(text, false, true);
-        handleFakeResponse(text);
+        if (handleFakeResponse(text)) return;
 
         if (LamaAPI.isConnected()) {
             handleRealResponse(text);
@@ -187,11 +187,13 @@ public class MainController {
         }
     }
 
-    private void handleFakeResponse(String text) throws IOException {
+    private boolean handleFakeResponse(String text) throws IOException {
         String fakeText = SolideAPI.sendPrompt(text);
         if (fakeText != null) {
             addMessage(fakeText, true, true);
+            return true;
         }
+        return false;
     }
 
     private void handleRealResponse(String text) {
@@ -228,6 +230,7 @@ public class MainController {
             Conversation newConversation = new Conversation(name);
             ConversationList.addConversation(newConversation);
             id = newConversation.getId();
+            System.out.println(id);
         }
         Label nameLabel = createNameLabel(name);
         Button optionsButton = createOptionsButton();
@@ -292,7 +295,9 @@ public class MainController {
         }
 
         conversation.setConversationName(result);
-        ConversationTitle.setText(result);
+        if (currentConversation.getId().equals(id))
+            ConversationTitle.setText(result);
+
         try {
             conversation.updateConversation();
         } catch (IOException e) {
@@ -309,11 +314,12 @@ public class MainController {
                 System.out.println("Conversation not found");
                 return;
             }
-            ConversationList.removeConversation(conversation);
             if (currentConversation.getId().equals(id)) {
+                System.out.println("Deleting current conversation");
                 hideChat();
                 currentConversation = null;
             }
+            ConversationList.removeConversation(conversation);
             chatPages.getChildren().removeIf(node -> node.getId().equals(id.toString()));
         });
         return deleteItem;
@@ -329,13 +335,14 @@ public class MainController {
     }
 
     private void setupConversation(String name, UUID id, VBox pageButton) {
+        Conversation tempConversation;
         if (id == null) {
-            currentConversation = new Conversation(name);
-            ConversationList.addConversation(currentConversation);
+            tempConversation = new Conversation(name);
+            ConversationList.addConversation(tempConversation);
         } else {
-            currentConversation = ConversationList.getConversation(id);
+            tempConversation = ConversationList.getConversation(id);
         }
-        final UUID tid = currentConversation.getId();
+        final UUID tid = tempConversation.getId();
 
         pageButton.setOnMouseClicked(event -> {
             if (waitingForResponse) return;
@@ -347,16 +354,16 @@ public class MainController {
                 return;
             }
 
+            currentConversation = conversation;
             List<Message> messages = conversation.getMessages();
             messages.forEach(message -> {
-            ConversationTitle.setText(conversation.getConversationName());
                 try {
                     addMessage(message.getMessage(), message.isAnswer(), false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-
+            ConversationTitle.setText(conversation.getConversationName());
             showChat();
         });
     }
@@ -470,6 +477,9 @@ public class MainController {
         offlineToggleButton.setVisible(false);
         sendButton.setVisible(false);
         sendCircle.setVisible(false);
+        updateLanguageComboBox.setVisible(false);
+        connectionSymbol.setVisible(false);
+        ConversationTitle.setVisible(false);
     }
 
     private void showChat() {
@@ -478,6 +488,9 @@ public class MainController {
         offlineToggleButton.setVisible(true);
         sendButton.setVisible(true);
         sendCircle.setVisible(true);
+        updateLanguageComboBox.setVisible(true);
+        connectionSymbol.setVisible(true);
+        ConversationTitle.setVisible(true);
     }
 
     public static boolean isOfflineMode() {
