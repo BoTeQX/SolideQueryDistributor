@@ -13,13 +13,13 @@ import java.io.IOException;
 public class LoginController {
 
     @FXML
-    private Button loginButton;
+    public Button loginButton;
 
     @FXML
-    private TextField loginUsernameTextField;
+    public TextField loginUsernameTextField;
 
     @FXML
-    private TextField loginPasswordPasswordField;
+    public TextField loginPasswordPasswordField;
 
     public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
 
@@ -108,7 +108,7 @@ public class LoginController {
         Main.PAGE_LOADER.loadMainPage();
     }
 
-    private void login() throws IOException {
+    public void login() throws IOException {
         String username = getUsername();
         String password = getPassword();
 

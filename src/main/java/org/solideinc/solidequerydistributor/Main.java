@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static final PageLoader PAGE_LOADER = new PageLoader();
+    public static PageLoader PAGE_LOADER = new PageLoader();
 
     @Override
     public void start(Stage stage) {
