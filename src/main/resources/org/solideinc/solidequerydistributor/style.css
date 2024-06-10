@@ -178,7 +178,7 @@
 .conversation {
     -fx-alignment: center-left;
     -fx-border-color: #6b6b6b;
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-padding: 0 0 0 10;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
@@ -205,6 +205,17 @@
 }
 
 .conversation:hover .nameLabel {
+    -fx-text-fill: black;
+}
+
+.selected {
+    -fx-background-color: #dedede;
+    -fx-background-radius: 10;
+    -fx-background-insets: 6 1 1 1;
+    -fx-border-radius: 10;
+}
+
+.selected .nameLabel {
     -fx-text-fill: black;
 }
 
@@ -264,3 +275,4 @@
     -fx-fill: white;
     -fx-background-color: white;
 }
+
