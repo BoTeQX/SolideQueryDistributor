@@ -2,10 +2,13 @@ package org.solideinc.solidequerydistributor.Controllers;
 
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -15,6 +18,7 @@ import javafx.util.Duration;
 import org.solideinc.solidequerydistributor.Classes.Conversation;
 import org.solideinc.solidequerydistributor.Classes.ConversationList;
 import org.solideinc.solidequerydistributor.Classes.Message;
+import org.solideinc.solidequerydistributor.Main;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 import org.solideinc.solidequerydistributor.Util.SolideAPI;
 
@@ -24,9 +28,11 @@ import java.util.UUID;
 
 import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
 
 public class MainController {
+    public Pane RootLayout;
+    @FXML
+    private ComboBox<String> updateLanguageComboBox;
     @FXML
     private Button logoutButton;
     @FXML
@@ -55,19 +61,36 @@ public class MainController {
     private ToggleButton offlineToggleButton;
     @FXML
     private Circle offlineToggleButtonCircle;
+    @FXML
+    private ImageView connectionSymbol;
+    @FXML
+    private Label ConversationTitle;
+
+   Image connectionImage = new Image("/connectionImage.png");
+
+    Image connectionNotImage = new Image("/connectionNotImage.png");
 
 
     private boolean waitingForResponse = false;
 
     private boolean isSidebarVisible = true;
 
+
+
     private Conversation currentConversation;
 
     private static boolean offlineMode = true;
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
+
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
     @FXML
     private void initialize() {
+        updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
+        ObservableList<String> options = updateLanguageComboBox.getItems();
+        options.add("nl");
+        options.add("en");
+        updateLanguageComboBox.setValue(LoginController.getLoggedInUser().getLanguagePreference());
+
         logoutButton.setOnAction(event -> logout());
         accountPageButton.setOnAction(event -> accountPage());
         toggleButton.setOnAction(this::handleToggleAction);
@@ -110,6 +133,16 @@ public class MainController {
         hideChat();
     }
 
+    private void updateLanguageSetting(){
+        LoginController.getLoggedInUser().setLanguagePreference(updateLanguageComboBox.getValue());
+        try {
+            UserController.updateUsers();
+            SolideAPI.setPromptsBasedOnLanguagePreference();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     private void setupOfflineToggleButton() {
         offlineToggleButton.setTooltip(offlineTooltip);
         offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
@@ -121,10 +154,12 @@ public class MainController {
             transition.setToX(19);
             setOfflineMode(false);
             setTooltip(onlineTooltip);
+            connectionSymbol.setImage(connectionImage);
         } else {
             transition.setToX(0);
             setOfflineMode(true);
             setTooltip(offlineTooltip);
+            connectionSymbol.setImage(connectionNotImage);
         }
         transition.play();
     }
@@ -257,6 +292,7 @@ public class MainController {
         }
 
         conversation.setConversationName(result);
+        ConversationTitle.setText(result);
         try {
             conversation.updateConversation();
         } catch (IOException e) {
@@ -313,6 +349,7 @@ public class MainController {
 
             List<Message> messages = conversation.getMessages();
             messages.forEach(message -> {
+            ConversationTitle.setText(conversation.getConversationName());
                 try {
                     addMessage(message.getMessage(), message.isAnswer(), false);
                 } catch (IOException e) {
@@ -384,10 +421,10 @@ public class MainController {
     }
 
     private void logout(){
-        PageLoader.loadLoginPage();
+        Main.PAGE_LOADER.loadLoginPage();
     }
     private void accountPage(){
-        PageLoader.loadAccountPage();
+        Main.PAGE_LOADER.loadAccountPage();
     }
 
     private void handleToggleAction(ActionEvent event) {

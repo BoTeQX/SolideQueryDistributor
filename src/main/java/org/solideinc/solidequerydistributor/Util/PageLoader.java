@@ -1,14 +1,8 @@
 package org.solideinc.solidequerydistributor.Util;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import org.solideinc.solidequerydistributor.Main;
+import org.solideinc.solidequerydistributor.Abstract.AbstractPageLoader;
 
-import java.io.IOException;
-import java.util.Objects;
+public class PageLoader extends AbstractPageLoader {
 
 public class PageLoader {
 
@@ -48,18 +42,26 @@ public class PageLoader {
             stage.getIcons().add(new Image("/logo.png"));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } 
     }
 
-    public static void loadLoginPage() {
+    @Override
+    public void loadFirstPage() {
+        loadLoginPage();
+    }
+
+    @Override
+    public void loadLoginPage() {
         loadPage("Login.fxml", "Solide™ Query Distributor - Login");
     }
 
-    public static void loadMainPage() {
+    @Override
+    public void loadMainPage() {
         loadPage("Main.fxml", "Solide™ Query Distributor - Main");
     }
 
-    public static void loadAccountPage() {
+    @Override
+    public void loadAccountPage() {
         loadPage("Account.fxml", "Solide™ Query Distributor - Account");
     }
 }

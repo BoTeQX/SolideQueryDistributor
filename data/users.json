@@ -1,8 +1,8 @@
 [ {
   "id" : "8c843a67-36c3-404d-a167-ebc2818546cb",
   "email" : "admin@admin.nl",
-  "username" : "adminx",
-  "password" : "$2a$12$/u0dXGxsCb8HCxuLt4Epduq2wKPoKjk1Tx3tKe0eWQmTLxmUtUyzS",
+  "username" : "admin",
+  "password" : "$2a$12$p8Swwdw6Z.qW7xZhi5y1cuif6XbUDUxtbPT.Nlw4koZcocpx5G3O2",
   "languagePreference" : "nl",
   "conversationIds" : [ ]
 } ]
