@@ -355,6 +355,12 @@ public class MainController {
                 return;
             }
 
+            chatPages.getChildren().forEach(node -> {
+                node.getStyleClass().remove("selected");
+            });
+
+            pageButton.getStyleClass().add("selected");
+
             currentConversation = conversation;
             List<Message> messages = conversation.getMessages();
             messages.forEach(message -> {
