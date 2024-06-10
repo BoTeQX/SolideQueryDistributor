@@ -1,7 +1,7 @@
 package org.solideinc.solidequerydistributor.Classes;
 
 public class Message {
-    private String message;
+    private String text;
     private Boolean isAnswer;
 
     public Message() {
@@ -9,16 +9,16 @@ public class Message {
     }
 
     public Message(String message, Boolean isAnswer) {
-        this.message = message;
+        this.text = message;
         this.isAnswer = isAnswer;
     }
 
     public String getMessage() {
-        return message;
+        return text;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.text = message;
     }
 
     public Boolean isAnswer() {

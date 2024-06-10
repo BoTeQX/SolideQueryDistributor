@@ -3,7 +3,6 @@ package org.solideinc.solidequerydistributor.Util;
 import org.solideinc.solidequerydistributor.Abstract.AbstractPageLoader;
 
 public class PageLoader extends AbstractPageLoader {
-
     @Override
     public void loadFirstPage() {
         loadLoginPage();

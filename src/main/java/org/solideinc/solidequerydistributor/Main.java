@@ -6,9 +6,6 @@ import javafx.stage.Stage;
 import org.solideinc.solidequerydistributor.Classes.ConversationList;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
-
-import java.io.IOException;
-
 public class Main extends Application {
 
     public static final PageLoader PAGE_LOADER = new PageLoader();

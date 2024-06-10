@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 public interface PageLoaderInterface {
 
-    String stylesheet = "/org/solideinc/solidequerydistributor/style.css";
+    String STYLE_SHEET = "/org/solideinc/solidequerydistributor/style.css";
 
     void setRootLayout(Pane rootLayout);
 
@@ -23,6 +23,6 @@ public interface PageLoaderInterface {
     void loadFirstPage();
 
     default String getStyleSheet() {
-        return stylesheet;
+        return STYLE_SHEET;
     }
 }

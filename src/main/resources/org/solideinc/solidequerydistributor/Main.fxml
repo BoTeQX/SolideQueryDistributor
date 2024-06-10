@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="RootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.MainController">
+<Pane fx:id="rootLayout" maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.solideinc.solidequerydistributor.Controllers.MainController">
     <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="260.0">
         <Label layoutX="59.0" layoutY="31.0" prefHeight="13.0" prefWidth="168.0" text="Solide™ Query Distributor" textAlignment="CENTER">
             <font>
@@ -85,7 +85,7 @@
             <Image url="/connectionNotImage.png" />
          </image>
       </ImageView>
-      <Label id="conversationTitle" layoutX="116.0" layoutY="15.0" prefHeight="43.0" prefWidth="417.0" text="" fx:id="ConversationTitle">
+      <Label id="conversationTitle" layoutX="116.0" layoutY="15.0" prefHeight="43.0" prefWidth="417.0" text="" fx:id="conversationTitle">
          <font>
             <Font size="19.0" />
          </font>

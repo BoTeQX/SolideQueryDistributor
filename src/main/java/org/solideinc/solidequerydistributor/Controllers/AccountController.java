@@ -1,18 +1,12 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
-import org.solideinc.solidequerydistributor.Util.SolideAPI;
-
-import javax.imageio.IIOException;
-import java.awt.*;
 import java.io.IOException;
 public class AccountController {
     @FXML
@@ -32,8 +26,7 @@ public class AccountController {
     @FXML
     private Button exitAccountPageButton;
 
-
-    private User user = LoginController.loggedInUser;
+    private User user = LoginController.getLoggedInUser();
     @FXML
     private void initialize() {
         updateAccountButton.setOnAction(event -> saveAccountInformation());
@@ -58,7 +51,7 @@ public class AccountController {
             try {
                 UserController.updateUsers();
             }catch (IOException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
         createConfirmDialog("Account informatie geupdate");
@@ -84,7 +77,7 @@ public class AccountController {
                 UserController.updateUsers();
                 createConfirmDialog("Wachtwoord geupdate");
             }catch (IOException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
         oldPasswordPasswordField.setText("");

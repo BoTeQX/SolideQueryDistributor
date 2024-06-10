@@ -7,10 +7,15 @@ import org.solideinc.solidequerydistributor.Util.JsonHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class UserController {
-    public static ArrayList<User> users = new ArrayList<>();
+    protected static List<User> users = new ArrayList<>();
+
+    private UserController() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static void createUser(String email, String username, String password, String languagePreference) throws IOException {
         String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
@@ -59,7 +64,7 @@ public class UserController {
         }
     }
 
-    public static ArrayList<User> getUsers() {
+    public static List<User> getUsers() {
         return users;
     }
 

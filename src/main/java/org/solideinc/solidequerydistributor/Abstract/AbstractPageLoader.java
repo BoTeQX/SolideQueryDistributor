@@ -47,9 +47,6 @@ public abstract class AbstractPageLoader implements PageLoaderInterface {
         }
     }
 
-    @Override
-    public abstract void loadFirstPage();
-
     public abstract void loadLoginPage();
 
     public abstract void loadMainPage();

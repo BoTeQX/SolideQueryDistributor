@@ -12,6 +12,11 @@ import java.io.IOException;
 public class LamaAPI {
     private static final String HOST = "http://localhost:11434/";
     private static OllamaAPI ollamaAPI;
+
+    private LamaAPI() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void connectToHost() {
         ollamaAPI = new OllamaAPI(HOST);
         ollamaAPI.setVerbose(true);
@@ -20,7 +25,7 @@ public class LamaAPI {
 
     public static boolean isConnected() {
         try {
-            if (ollamaAPI == null || !ollamaAPI.ping() || MainController.offlineMode) {
+            if (ollamaAPI == null || !ollamaAPI.ping() || MainController.isOfflineMode()) {
                 System.out.println("Not connected");
                 return false;
             }
@@ -32,7 +37,7 @@ public class LamaAPI {
     }
 
     public static String sendPrompt(String prompt) throws OllamaBaseException, IOException, InterruptedException {
-        if (ollamaAPI == null || !isConnected() || MainController.offlineMode)
+        if (ollamaAPI == null || !isConnected() || MainController.isOfflineMode())
             return "SERVER OFFLINE";
 
         OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build());

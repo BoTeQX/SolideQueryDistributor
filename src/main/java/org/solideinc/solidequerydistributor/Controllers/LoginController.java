@@ -4,10 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
 import java.io.IOException;
 
 public class LoginController {
@@ -24,18 +22,18 @@ public class LoginController {
     public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
 
     @FXML
-    private void initialize() throws IOException {
-        //UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
+    private void initialize() {
+        // UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
         loginButton.setOnAction(event -> {
             try {
                 login();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
         });
     }
 
-    public static User loggedInUser = null;
+    private static User loggedInUser = null;
 
     private String getUsername() {
         return loginUsernameTextField.getText();
