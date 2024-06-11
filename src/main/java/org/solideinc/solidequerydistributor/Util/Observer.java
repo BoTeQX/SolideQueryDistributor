@@ -3,6 +3,7 @@ package org.solideinc.solidequerydistributor.Util;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 
 public class Observer implements ChangeListener<String> {
     private final TextField textField;
@@ -26,9 +27,12 @@ public class Observer implements ChangeListener<String> {
         if (text.isEmpty()) {
             if (!textField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
                 textField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
+                Tooltip tooltip = new Tooltip("Dit veld kan niet leeg zijn");
+                Tooltip.install(textField, tooltip);
             }
         } else {
             textField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
+            Tooltip.uninstall(textField, textField.getTooltip());
         }
     }
 }
