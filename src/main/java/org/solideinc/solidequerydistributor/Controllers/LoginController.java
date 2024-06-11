@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
+import org.solideinc.solidequerydistributor.Util.Observer;
+
 import java.io.IOException;
 
 public class LoginController {
@@ -19,11 +21,14 @@ public class LoginController {
     @FXML
     public TextField loginPasswordPasswordField;
 
-    public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
+    private Observer usernameObserver;
+    private Observer passwordObserver;
 
     @FXML
     private void initialize() {
         // UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
+        setObservers();
+
         loginButton.setOnAction(event -> {
             try {
                 login();
@@ -56,35 +61,16 @@ public class LoginController {
         loginPasswordPasswordField.clear();
     }
 
-    private boolean checkUsernameField(String username) {
-        if (username.isEmpty()) {
-            if (!loginUsernameTextField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
-                loginUsernameTextField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
-            }
-            return true;
-        } else {
-            loginUsernameTextField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
-            return false;
-        }
+    private void setObservers() {
+        usernameObserver = new Observer(loginUsernameTextField);
+        passwordObserver = new Observer(loginPasswordPasswordField);
     }
 
-    private boolean checkPasswordField(String password) {
-        if (password.isEmpty()) {
-            if (!loginPasswordPasswordField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
-                loginPasswordPasswordField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
-            }
-            return true;
-        } else {
-            loginPasswordPasswordField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
-            return false;
-        }
-    }
+    private boolean checkIfEmptyFields() {
+        String username = loginUsernameTextField.getText();
+        String password = loginPasswordPasswordField.getText();
 
-    private boolean checkIfEmptyFields(String username, String password) {
-        boolean isUsernameEmpty = checkUsernameField(username);
-        boolean isPasswordEmpty = checkPasswordField(password);
-
-        if (isUsernameEmpty || isPasswordEmpty) {
+        if (username.isEmpty() || password.isEmpty()) {
             createAlertDialog("Vul alstublieft alle velden in");
             return true;
         }
@@ -107,10 +93,14 @@ public class LoginController {
     }
 
     public void login() throws IOException {
+        // Check if the fields are empty when the user clicks the login button
+        usernameObserver.checkAndApplyStyle();
+        passwordObserver.checkAndApplyStyle();
+
         String username = getUsername();
         String password = getPassword();
 
-        if(!checkIfEmptyFields(username, password)) {
+        if(!checkIfEmptyFields()) {
             validateLoginCredentials(username, password);
         }
     }
