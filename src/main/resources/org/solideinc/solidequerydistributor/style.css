@@ -46,6 +46,55 @@
     -fx-cursor: hand;
 }
 
+#updateAccountButton, #changePasswordButton {
+    -fx-background-color: black;
+    -fx-padding: 10px;
+    -fx-border-color: white;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#updateAccountButton:hover {
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+#changePasswordButton:hover {
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+}
+
+#exitAccountPageButton{
+    -fx-text-fill: white;
+}
+
+#exitAccountPageButton:hover{
+    -fx-text-fill: red;
+    -fx-cursor: hand;
+}
+
+#updateLanguageComboBox{
+    -fx-background-color: black;
+    -fx-padding: 5px;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+#updateLanguageComboBox .list-cell{
+    -fx-text-fill: white;
+}
+#updateLanguageComboBox .list-view .list-cell {
+    -fx-text-fill: black;
+}
+
 .logoutButton {
     -fx-background-color: transparent;
 }
@@ -112,8 +161,118 @@
     -fx-vbar-policy: never;
 }
 
+#conversationTitle {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+    -fx-font-weight: BOLD;
+}
+
 /* Error style */
 .text-field-error {
     -fx-border-color: red;
     -fx-border-width: 3px;
 }
+
+
+.conversation {
+    -fx-alignment: center-left;
+    -fx-border-color: #6b6b6b;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.conversation:focused {
+    -fx-border-color: black;
+}
+
+.conversation:hover {
+    -fx-border-color: black;
+}
+
+.conversation .optionButton {
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-padding: 0 10 8 0;
+    -fx-font-weight: bold;
+}
+
+.conversation .nameLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b6b6b;
+}
+
+.conversation:hover .nameLabel {
+    -fx-text-fill: black;
+}
+
+.selected {
+    -fx-background-color: #dedede;
+    -fx-background-radius: 10;
+    -fx-background-insets: 6 1 1 1;
+    -fx-border-radius: 10;
+}
+
+.selected .nameLabel {
+    -fx-text-fill: black;
+}
+
+.contextMenu {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+.menu-item .label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b6b6b;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: black;
+}
+
+.delete .label {
+    -fx-text-fill: #b00000;
+}
+
+.delete:focused .label {
+    -fx-text-fill: #ff0000;
+}
+
+.menu-item:focused {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: #d2d2d2;
+}
+
+/* iOS-style toggle switch */
+#offlineToggleButton {
+    -fx-background-color: red;
+    -fx-background-radius: 15px;
+    -fx-padding: 2;
+    -fx-text-fill: transparent;
+    -fx-text-alignment: center;
+    -fx-alignment: center-left;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 25px;
+    -fx-cursor: hand;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+}
+
+#offlineToggleButton:selected {
+    -fx-background-color: #4cd964;
+    -fx-background-radius: 15px;
+    -fx-padding: 2;
+    -fx-alignment: center-right;
+}
+
+#offlineToggleButtonCircle {
+    -fx-fill: white;
+    -fx-background-color: white;
+}
+

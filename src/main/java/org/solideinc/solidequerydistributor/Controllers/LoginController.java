@@ -1,29 +1,14 @@
 package org.solideinc.solidequerydistributor.Controllers;
 
-
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.solideinc.solidequerydistributor.Classes.User;
 import org.solideinc.solidequerydistributor.Main;
-import org.solideinc.solidequerydistributor.Util.PageLoader;
-
 import java.io.IOException;
-
-import java.io.IOException;
-
 
 public class LoginController {
-    @FXML
-    private Pane RootLayout;
 
     @FXML
     private Button loginButton;
@@ -34,19 +19,21 @@ public class LoginController {
     @FXML
     private TextField loginPasswordPasswordField;
 
+    public static final String TEXT_FIELD_ERROR_CSS_CLASS = "text-field-error";
+
     @FXML
-    private void initialize() throws IOException {
-        UserController.createUser("admin@admin.nl", "admin", "admin", "nl");
+    private void initialize() {
+        // UserController.createUser("admin@admin.nl", "adminx", "adminx", "nl");
         loginButton.setOnAction(event -> {
             try {
                 login();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
         });
     }
 
-    public static User loggedInUser = null;
+    private static User loggedInUser = null;
 
     private String getUsername() {
         return loginUsernameTextField.getText();
@@ -71,24 +58,24 @@ public class LoginController {
 
     private boolean checkUsernameField(String username) {
         if (username.isEmpty()) {
-            if (!loginUsernameTextField.getStyleClass().contains("text-field-error")) {
-                loginUsernameTextField.getStyleClass().add("text-field-error");
+            if (!loginUsernameTextField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
+                loginUsernameTextField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
             }
             return true;
         } else {
-            loginUsernameTextField.getStyleClass().remove("text-field-error");
+            loginUsernameTextField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
             return false;
         }
     }
 
     private boolean checkPasswordField(String password) {
         if (password.isEmpty()) {
-            if (!loginPasswordPasswordField.getStyleClass().contains("text-field-error")) {
-                loginPasswordPasswordField.getStyleClass().add("text-field-error");
+            if (!loginPasswordPasswordField.getStyleClass().contains(TEXT_FIELD_ERROR_CSS_CLASS)) {
+                loginPasswordPasswordField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
             }
             return true;
         } else {
-            loginPasswordPasswordField.getStyleClass().remove("text-field-error");
+            loginPasswordPasswordField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
             return false;
         }
     }
@@ -116,7 +103,7 @@ public class LoginController {
     }
 
     private void redirectUser() {
-        PageLoader.loadMainPage();
+        Main.PAGE_LOADER.loadMainPage();
     }
 
     private void login() throws IOException {

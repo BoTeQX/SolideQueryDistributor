@@ -14,12 +14,16 @@ module org.solideinc.solidequerydistributor {
     requires com.fasterxml.jackson.databind;
     requires bcrypt;
     requires java.desktop;
+    requires java.logging;
 
     opens org.solideinc.solidequerydistributor to javafx.fxml;
+    opens org.solideinc.solidequerydistributor.Classes to com.fasterxml.jackson.databind;
     exports org.solideinc.solidequerydistributor;
     exports org.solideinc.solidequerydistributor.Controllers;
     exports org.solideinc.solidequerydistributor.Classes;
     opens org.solideinc.solidequerydistributor.Controllers to javafx.fxml;
     exports org.solideinc.solidequerydistributor.Util;
     opens org.solideinc.solidequerydistributor.Util to javafx.fxml;
+    exports org.solideinc.solidequerydistributor.Abstract;
+    opens org.solideinc.solidequerydistributor.Abstract to javafx.fxml;
 }

@@ -5,6 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 
 public class FxmlLoader {
+
+    private FxmlLoader() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void load(Pane rootLayout, String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader();
