@@ -36,8 +36,8 @@ public class LoginControllerTest extends ApplicationTest {
         loginController.loginPasswordPasswordField = passwordField;
         loginController.loginButton = loginButton;
 
-        // Save the original PAGE_LOADER
-        originalPageLoader = Main.PAGE_LOADER;
+        // Save the original pageLoader
+        originalPageLoader = Main.pageLoader;
 
         // Set up the mocked TextField to return a non-null ObservableList for getStyleClass()
         ObservableList<String> usernameStyleClass = FXCollections.observableArrayList();
@@ -45,9 +45,9 @@ public class LoginControllerTest extends ApplicationTest {
         when(usernameField.getStyleClass()).thenReturn(usernameStyleClass);
         when(passwordField.getStyleClass()).thenReturn(passwordStyleClass);
 
-        // Mock the PAGE_LOADER
+        // Mock the pageLoader
         PageLoader mockPageLoader = Mockito.mock(PageLoader.class);
-        Main.PAGE_LOADER = mockPageLoader;
+        Main.pageLoader = mockPageLoader;
 
 
 
@@ -55,8 +55,8 @@ public class LoginControllerTest extends ApplicationTest {
 
     @AfterEach
     public void tearDown() {
-        // Reset the PAGE_LOADER to its original state
-        Main.PAGE_LOADER = originalPageLoader;
+        // Reset the pageLoader to its original state
+        Main.pageLoader = originalPageLoader;
     }
 
     @Test
@@ -67,7 +67,7 @@ public class LoginControllerTest extends ApplicationTest {
         assertThrows(RuntimeException.class, () -> loginController.login());
 
         // Verify that loadMainPage was not called
-        verify(Main.PAGE_LOADER, never()).loadMainPage();
+        verify(Main.pageLoader, never()).loadMainPage();
     }
 
     @Test
@@ -80,7 +80,7 @@ public class LoginControllerTest extends ApplicationTest {
         assertDoesNotThrow(() -> loginController.login());
 
         // Verify that loadMainPage was called
-        verify(Main.PAGE_LOADER).loadMainPage();
+        verify(Main.pageLoader).loadMainPage();
     }
 
     @Test
@@ -93,6 +93,6 @@ public class LoginControllerTest extends ApplicationTest {
         assertThrows(RuntimeException.class, () -> loginController.login());
 
         // Verify that loadMainPage was not called
-        verify(Main.PAGE_LOADER, never()).loadMainPage();
+        verify(Main.pageLoader, never()).loadMainPage();
     }
 }

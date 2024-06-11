@@ -435,10 +435,10 @@ public class MainController {
     }
 
     private void logout(){
-        Main.PAGE_LOADER.loadLoginPage();
+        Main.pageLoader.loadLoginPage();
     }
     private void accountPage(){
-        Main.PAGE_LOADER.loadAccountPage();
+        Main.pageLoader.loadAccountPage();
     }
 
     private void handleToggleAction(ActionEvent event) {
