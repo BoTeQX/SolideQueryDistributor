@@ -41,7 +41,7 @@ class AccountControllerTest extends ApplicationTest {
         // Create a test user and set it as logged in
         UserController.createUser("testEmail@test.com", "testUser", "testPassword", "en");
         user = UserController.getUser("testUser");
-        LoginController.loggedInUser = user;
+        LoginController.setLoggedInUser(user);
 
         // Create a real AccountController instance after setting the logged-in user
         accountController = new AccountController();
