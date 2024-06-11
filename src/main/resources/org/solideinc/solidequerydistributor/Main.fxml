@@ -47,7 +47,7 @@
          <content>
             <VBox fx:id="chatPages" prefHeight="468.0" prefWidth="224.0" style="-fx-background-color: white;">
                <children>
-                  <Button id="addNewButton" fx:id="addNewButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="221.0" style="-fx-font-size: 14;" styleClass="conversation" text="Nieuwe chat +">
+                  <Button id="addNewButton" fx:id="addNewButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="221.0" style="-fx-font-size: 14; -fx-alignment: CENTER;" styleClass="conversation" text="Nieuwe chat">
                      <font>
                         <Font size="20.0" />
                      </font>

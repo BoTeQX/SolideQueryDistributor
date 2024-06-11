@@ -34,7 +34,7 @@
                         <Font name="System Bold" size="36.0" />
                     </font>
                 </Label>
-                <Button id="updateAccountButton" fx:id="updateAccountButton" focusTraversable="false" layoutX="99.0" layoutY="391.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Save">
+                <Button id="updateAccountButton" fx:id="updateAccountButton" focusTraversable="false" layoutX="99.0" layoutY="391.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" styleClass="loginButton" text="Save">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -49,7 +49,7 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-            <Button id="changePasswordButton" fx:id="changePasswordButton" focusTraversable="false" layoutX="394.0" layoutY="391.0" mnemonicParsing="false" text="Verander wachtwoord">
+            <Button id="changePasswordButton" fx:id="changePasswordButton" focusTraversable="false" layoutX="394.0" layoutY="391.0" mnemonicParsing="false" styleClass="loginButton" text="Verander wachtwoord">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Button>
