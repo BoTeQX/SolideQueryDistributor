@@ -10,17 +10,17 @@ import org.solideinc.solidequerydistributor.Main;
 import java.io.IOException;
 public class AccountController {
     @FXML
-    private PasswordField oldPasswordPasswordField;
+    public PasswordField oldPasswordPasswordField;
     @FXML
     private Button changePasswordButton;
     @FXML
-    private TextField updateUsernameTextField;
+    public TextField updateUsernameTextField;
     @FXML
-    private PasswordField updatePasswordPasswordField;
+    public PasswordField updatePasswordPasswordField;
     @FXML
-    private PasswordField updateConfirmPasswordPasswordField;
+    public PasswordField updateConfirmPasswordPasswordField;
     @FXML
-    private TextField updateEmailTextField;
+    public TextField updateEmailTextField;
     @FXML
     private Button updateAccountButton;
     @FXML
@@ -36,7 +36,7 @@ public class AccountController {
         updateUsernameTextField.setText(user.getUsername());
         updateEmailTextField.setText(user.getEmail());
     }
-    private void saveAccountInformation(){
+    public void saveAccountInformation(){
         if (updateUsernameTextField.getText().equals(user.getUsername()) && updateEmailTextField.getText().equals(user.getEmail())){
             createAlertDialog("Er zijn geen veranderingen");
             return ;
@@ -57,7 +57,7 @@ public class AccountController {
         createConfirmDialog("Account informatie geupdate");
     }
 
-    private void changePassword(){
+    public void changePassword(){
         BCrypt.Result result = BCrypt.verifyer().verify(oldPasswordPasswordField.getText().toCharArray(), user.getPassword());
         if (!result.verified){
             createAlertDialog("Wachtwoord is incorrect.");

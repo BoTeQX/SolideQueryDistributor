@@ -8,7 +8,7 @@ import org.solideinc.solidequerydistributor.Util.PageLoader;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 public class Main extends Application {
 
-    public static final PageLoader PAGE_LOADER = new PageLoader();
+    public static PageLoader PAGE_LOADER = new PageLoader();
 
     @Override
     public void start(Stage stage) {
