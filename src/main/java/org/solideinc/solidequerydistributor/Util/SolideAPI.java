@@ -7,15 +7,19 @@ import java.util.Map;
 
 public class SolideAPI {
     private static final Map<String, String> promptResponses = new HashMap<>();
+    public static String userLanguagePreference;
 
     public static void setPromptsBasedOnLanguagePreference() {
-        System.out.println(LoginController.getLoggedInUser().getLanguagePreference());
-        if (LoginController.getLoggedInUser().getLanguagePreference().equals("nl")) {
-            promptResponses.clear();
-            setDutchPrompts();
-        } else {
-            promptResponses.clear();
-            setEnglishPrompts();
+        userLanguagePreference = LoginController.getLoggedInUser().getLanguagePreference();
+
+        if (userLanguagePreference != null) {
+            if (userLanguagePreference.equals("nl")) {
+                promptResponses.clear();
+                setDutchPrompts();
+            } else if (userLanguagePreference.equals("en")){
+                promptResponses.clear();
+                setEnglishPrompts();
+            }
         }
     }
 
