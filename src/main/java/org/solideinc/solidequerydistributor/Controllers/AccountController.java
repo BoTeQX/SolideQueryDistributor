@@ -85,7 +85,7 @@ public class AccountController {
         updateConfirmPasswordPasswordField.setText("");
     }
     private void mainPage(){
-        Main.PAGE_LOADER.loadMainPage();
+        Main.pageLoader.loadMainPage();
     }
 
     private void createAlertDialog(String content) {

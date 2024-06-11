@@ -103,7 +103,7 @@ public class LoginController {
     }
 
     private void redirectUser() {
-        Main.PAGE_LOADER.loadMainPage();
+        Main.pageLoader.loadMainPage();
     }
 
     public void login() throws IOException {
