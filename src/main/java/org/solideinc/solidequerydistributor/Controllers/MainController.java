@@ -410,7 +410,6 @@ public class MainController {
             chatBox.getChildren().add(messageBox);
         } else {
             currentMessageLabel.setText(message);
-            updateLabelSize(currentMessageLabel);
             scrollChatPane();
         }
     }
@@ -441,48 +440,25 @@ public class MainController {
     private Label createMessageLabel(String text) {
         Label messageLabel = new Label(text);
         messageLabel.setWrapText(true);
+        messageLabel.setMaxWidth(450);
+        messageLabel.setMinHeight(Region.USE_PREF_SIZE);
 
-        Text textNode = new Text(text);
-        Font newFont = new Font(messageLabel.getFont().getFamily(), 16);
-        textNode.setFont(newFont);
-        textNode.setWrappingWidth(300);
-        textNode.setTextOrigin(VPos.BASELINE);
-        textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
-
-        double textHeight = textNode.getLayoutBounds().getHeight();
-        messageLabel.setPrefHeight(textHeight + 20);
-        messageLabel.setMinHeight(textHeight + 20);
-        messageLabel.setMaxHeight(textHeight + 20);
         return messageLabel;
     }
 
-    private void updateLabelSize(Label label) {
-        Text textNode = new Text(label.getText());
-        Font newFont = new Font(label.getFont().getFamily(), 16);
-        textNode.setFont(newFont);
-        textNode.setWrappingWidth(300);
-        textNode.setTextOrigin(VPos.BASELINE);
-        textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
-
-        double textHeight = textNode.getLayoutBounds().getHeight();
-        label.setPrefHeight(textHeight + 20);
-        label.setMinHeight(textHeight + 20);
-        label.setMaxHeight(textHeight + 20);
-    }
-
     private HBox createMessageBox(boolean answer, Label messageLabel) {
-        HBox messageBox = new HBox();
-        messageBox.setPadding(new Insets(5, 5, 5, 5));
+        HBox messageBox = new HBox(5);
+        messageBox.setPadding(new Insets(5));
 
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
-            messageLabel.setStyle("-fx-background-color: transparent; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
             waitingForResponse = false;
             chatField.setText("");
             chatField.setDisable(false);
         } else {
             messageBox.setAlignment(Pos.CENTER_RIGHT);
-            messageLabel.setStyle("-fx-background-color: #41515c; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-text-fill: black");
         }
         return messageBox;
     }
