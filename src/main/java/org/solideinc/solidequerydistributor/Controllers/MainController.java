@@ -30,6 +30,7 @@ import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 
 public class MainController {
+    private static MainController instance;
     @FXML
     public Pane rootLayout;
     @FXML
@@ -67,12 +68,15 @@ public class MainController {
     @FXML
     private Label conversationTitle;
 
+    private Label currentMessageLabel;
+
    Image connectionImage = new Image("/connectionImage.png");
 
     Image connectionNotImage = new Image("/connectionNotImage.png");
 
 
     private boolean waitingForResponse = false;
+    private boolean animatingText = false;
 
     private boolean isSidebarVisible = true;
 
@@ -86,6 +90,9 @@ public class MainController {
 
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
 
+    public static MainController getInstance() {
+        return instance;
+    }
     @FXML
     private void initialize() {
         updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
@@ -134,6 +141,8 @@ public class MainController {
         setupOfflineToggleButton();
 
         hideChat();
+
+        instance = this;
     }
 
     public void setOnlineTooltip(){
@@ -391,6 +400,21 @@ public class MainController {
         });
     }
 
+    public void updateMessage(String message) {
+        message = message.trim();
+        if (currentMessageLabel == null && !animatingText) {
+            animatingText = true;
+            currentMessageLabel = createMessageLabel(message);
+            HBox messageBox = createMessageBox(true, currentMessageLabel);
+            messageBox.getChildren().add(currentMessageLabel);
+            chatBox.getChildren().add(messageBox);
+        } else {
+            currentMessageLabel.setText(message);
+            updateLabelSize(currentMessageLabel);
+            scrollChatPane();
+        }
+    }
+
     private void addMessage(String text, boolean answer, boolean save) throws IOException {
         if (currentConversation == null) {
             System.out.println("No conversation selected");
@@ -399,6 +423,11 @@ public class MainController {
 
         text = text.trim();
         if (save) currentConversation.addMessage(text, answer);
+        if (currentMessageLabel != null) {
+            animatingText = false;
+            chatBox.getChildren().remove(chatBox.getChildren().size() - 1);
+            currentMessageLabel = null;
+        }
 
         Label messageLabel = createMessageLabel(text);
         HBox messageBox = createMessageBox(answer, messageLabel);
@@ -425,6 +454,20 @@ public class MainController {
         messageLabel.setMinHeight(textHeight + 20);
         messageLabel.setMaxHeight(textHeight + 20);
         return messageLabel;
+    }
+
+    private void updateLabelSize(Label label) {
+        Text textNode = new Text(label.getText());
+        Font newFont = new Font(label.getFont().getFamily(), 16);
+        textNode.setFont(newFont);
+        textNode.setWrappingWidth(300);
+        textNode.setTextOrigin(VPos.BASELINE);
+        textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
+
+        double textHeight = textNode.getLayoutBounds().getHeight();
+        label.setPrefHeight(textHeight + 20);
+        label.setMinHeight(textHeight + 20);
+        label.setMaxHeight(textHeight + 20);
     }
 
     private HBox createMessageBox(boolean answer, Label messageLabel) {
