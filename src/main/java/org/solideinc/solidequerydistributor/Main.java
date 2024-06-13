@@ -8,13 +8,13 @@ import org.solideinc.solidequerydistributor.Util.PageLoader;
 import org.solideinc.solidequerydistributor.Util.LamaAPI;
 public class Main extends Application {
 
-    public static final PageLoader PAGE_LOADER = new PageLoader();
+    public static PageLoader pageLoader = PageLoader.getInstance();
 
     @Override
     public void start(Stage stage) {
         Pane rootLayout = new Pane();
-        PAGE_LOADER.setRootLayout(rootLayout);
-        PAGE_LOADER.startApplication();
+        pageLoader.setRootLayout(rootLayout);
+        pageLoader.startApplication();
     }
 
     public static void main(String[] args) {

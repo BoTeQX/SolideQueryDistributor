@@ -3,6 +3,19 @@ package org.solideinc.solidequerydistributor.Util;
 import org.solideinc.solidequerydistributor.Abstract.AbstractPageLoader;
 
 public class PageLoader extends AbstractPageLoader {
+    private static PageLoader instance;
+
+    private PageLoader() {
+        // private constructor to prevent instantiation
+    }
+
+    public static PageLoader getInstance() {
+        if (instance == null) {
+            instance = new PageLoader();
+        }
+        return instance;
+    }
+
     @Override
     public void loadFirstPage() {
         loadLoginPage();

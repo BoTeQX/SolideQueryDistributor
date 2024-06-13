@@ -28,7 +28,7 @@
 }
 
 /* Button style */
-#loginButton {
+.loginButton {
     -fx-background-color: black;
     -fx-padding: 10px;
     -fx-border-color: white;
@@ -38,7 +38,7 @@
     -fx-cursor: hand;
 }
 
-#loginButton:hover {
+.loginButton:hover {
     -fx-text-fill: black;
     -fx-border-color: white;
     -fx-background-color: white;
@@ -46,23 +46,6 @@
     -fx-cursor: hand;
 }
 
-#updateAccountButton, #changePasswordButton {
-    -fx-background-color: black;
-    -fx-padding: 10px;
-    -fx-border-color: white;
-    -fx-border-radius: 20px;
-    -fx-border-width: 2px;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
-}
-
-#updateAccountButton:hover {
-    -fx-text-fill: black;
-    -fx-border-color: white;
-    -fx-background-color: white;
-    -fx-background-radius: 20px;
-    -fx-cursor: hand;
-}
 #changePasswordButton:hover {
     -fx-text-fill: black;
     -fx-border-color: white;
@@ -190,6 +173,7 @@
 
 .conversation:hover {
     -fx-border-color: black;
+    -fx-cursor: hand;
 }
 
 .conversation .optionButton {
@@ -206,6 +190,7 @@
 
 .conversation:hover .nameLabel {
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .selected {
@@ -232,6 +217,7 @@
 
 .menu-item:focused .label {
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .delete .label {
@@ -240,12 +226,14 @@
 
 .delete:focused .label {
     -fx-text-fill: #ff0000;
+    -fx-cursor: hand;
 }
 
 .menu-item:focused {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-background-color: #d2d2d2;
+    -fx-cursor: hand;
 }
 
 /* iOS-style toggle switch */
