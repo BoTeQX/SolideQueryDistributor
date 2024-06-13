@@ -296,7 +296,7 @@ public class MainController {
         }
 
         conversation.setConversationName(result);
-        if (currentConversation.getId().equals(id))
+        if (currentConversation != null && currentConversation.getId().equals(id))
             conversationTitle.setText(result);
 
         try {
