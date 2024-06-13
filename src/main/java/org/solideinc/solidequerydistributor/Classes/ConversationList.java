@@ -69,7 +69,7 @@ public class ConversationList {
     public static void removeConversation(Conversation conversation) {
         getInstance().conversationsList.remove(conversation);
         try {
-            JsonHandler.removeFile("conversations/" + conversation.getId() + ".json");
+            Files.deleteIfExists(Paths.get("data/conversations/" + conversation.getId() + ".json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
