@@ -81,9 +81,11 @@ public class MainController {
     private Conversation currentConversation;
 
     private static boolean offlineMode = true;
+
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
 
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
+
     @FXML
     private void initialize() {
         updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
@@ -134,6 +136,20 @@ public class MainController {
         hideChat();
     }
 
+    public void setOnlineTooltip(){
+        onlineTooltip.setShowDuration(Duration.INDEFINITE);
+        onlineTooltip.setShowDelay(Duration.ZERO);
+        onlineTooltip.setHideDelay(Duration.ZERO);
+        offlineToggleButton.setTooltip(onlineTooltip);
+    }
+
+    public void setOfflineTooltip(){
+        offlineTooltip.setShowDuration(Duration.INDEFINITE);
+        offlineTooltip.setShowDelay(Duration.seconds(0));
+        offlineTooltip.setHideDelay(Duration.seconds(0));
+        offlineToggleButton.setTooltip(offlineTooltip);
+    }
+
     private void updateLanguageSetting(){
         LoginController.getLoggedInUser().setLanguagePreference(updateLanguageComboBox.getValue());
         try {
@@ -145,7 +161,7 @@ public class MainController {
     }
 
     private void setupOfflineToggleButton() {
-        offlineToggleButton.setTooltip(offlineTooltip);
+        setOfflineTooltip();
         offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
     }
 
@@ -154,12 +170,12 @@ public class MainController {
         if (offlineToggleButton.isSelected()) {
             transition.setToX(19);
             setOfflineMode(false);
-            setTooltip(onlineTooltip);
+            setOnlineTooltip();
             connectionSymbol.setImage(connectionImage);
         } else {
             transition.setToX(0);
             setOfflineMode(true);
-            setTooltip(offlineTooltip);
+            setOfflineTooltip();
             connectionSymbol.setImage(connectionNotImage);
         }
         transition.play();
@@ -507,4 +523,6 @@ public class MainController {
     public static void setOfflineMode(boolean offlineMode) {
         MainController.offlineMode = offlineMode;
     }
+
+
 }

@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 public class Observer implements ChangeListener<String> {
     private final TextField textField;
@@ -29,6 +30,10 @@ public class Observer implements ChangeListener<String> {
                 textField.getStyleClass().add(TEXT_FIELD_ERROR_CSS_CLASS);
                 Tooltip tooltip = new Tooltip("Dit veld kan niet leeg zijn");
                 Tooltip.install(textField, tooltip);
+                tooltip.setShowDelay(Duration.ZERO);
+                tooltip.setShowDuration(Duration.INDEFINITE);
+                tooltip.setHideDelay(Duration.ZERO);
+
             }
         } else {
             textField.getStyleClass().remove(TEXT_FIELD_ERROR_CSS_CLASS);
