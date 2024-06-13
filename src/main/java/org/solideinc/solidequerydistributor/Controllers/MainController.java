@@ -44,8 +44,6 @@ public class MainController {
     @FXML
     private TextArea chatField;
     @FXML
-    private Button sendButton;
-    @FXML
     private ScrollPane chatPane;
     @FXML
     private Pane sidebar;
@@ -55,8 +53,6 @@ public class MainController {
     private Button toggleButton;
     @FXML
     private Button addNewButton;
-    @FXML
-    private Circle sendCircle;
     @FXML
     private VBox chatPages;
     @FXML
@@ -106,13 +102,6 @@ public class MainController {
         toggleButton.setOnAction(this::handleToggleAction);
 
         addNewButton.setOnAction(event -> addConversation("Nieuw gesprek", null));
-        sendButton.setOnAction(event -> {
-            try {
-                confirmPrompt();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
         chatField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
@@ -130,13 +119,6 @@ public class MainController {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
 
-        sendButton.setOnAction(event -> {
-            try {
-                confirmPrompt();
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        });
         SolideAPI.setPromptsBasedOnLanguagePreference();
         setupOfflineToggleButton();
 
@@ -489,36 +471,30 @@ public class MainController {
         sidebar.setPrefWidth(15);
         mainContent.setLayoutX(15);
         mainContent.setPrefWidth(900);
-        chatField.setPrefWidth(770);
-        sendButton.setLayoutX(820);
-        sendCircle.setLayoutX(850);
+        chatField.setPrefWidth(848);
         toggleButton.setText(">");
         toggleButton.setLayoutY(270);
         toggleButton.setLayoutX(-5);
-        chatPane.setPrefWidth(830);
-        chatBox.setPrefWidth(825);
+        chatPane.setPrefWidth(865);
+        chatBox.setPrefWidth(858);
     }
 
     private void showSidebar(){
         sidebar.setPrefWidth(260);
         mainContent.setPrefWidth(640);
         mainContent.setLayoutX(260);
-        chatField.setPrefWidth(518);
-        sendButton.setLayoutX(562);
-        sendCircle.setLayoutX(591);
+        chatField.setPrefWidth(603);
         toggleButton.setText("<");
         toggleButton.setLayoutY(0);
         toggleButton.setLayoutX(210);
-        chatPane.setPrefWidth(587);
-        chatBox.setPrefWidth(583);
+        chatPane.setPrefWidth(615);
+        chatBox.setPrefWidth(613);
     }
 
     private void hideChat() {
         chatPane.setVisible(false);
         chatField.setVisible(false);
         offlineToggleButton.setVisible(false);
-        sendButton.setVisible(false);
-        sendCircle.setVisible(false);
         updateLanguageComboBox.setVisible(false);
         connectionSymbol.setVisible(false);
         conversationTitle.setVisible(false);
@@ -528,8 +504,6 @@ public class MainController {
         chatPane.setVisible(true);
         chatField.setVisible(true);
         offlineToggleButton.setVisible(true);
-        sendButton.setVisible(true);
-        sendCircle.setVisible(true);
         updateLanguageComboBox.setVisible(true);
         connectionSymbol.setVisible(true);
         conversationTitle.setVisible(true);
