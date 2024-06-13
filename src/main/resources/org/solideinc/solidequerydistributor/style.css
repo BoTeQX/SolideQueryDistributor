@@ -173,6 +173,7 @@
 
 .conversation:hover {
     -fx-border-color: black;
+    -fx-cursor: hand;
 }
 
 .conversation .optionButton {
@@ -189,6 +190,7 @@
 
 .conversation:hover .nameLabel {
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .selected {
@@ -215,6 +217,7 @@
 
 .menu-item:focused .label {
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .delete .label {
@@ -223,12 +226,14 @@
 
 .delete:focused .label {
     -fx-text-fill: #ff0000;
+    -fx-cursor: hand;
 }
 
 .menu-item:focused {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-background-color: #d2d2d2;
+    -fx-cursor: hand;
 }
 
 /* iOS-style toggle switch */
