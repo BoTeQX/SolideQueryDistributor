@@ -159,6 +159,7 @@ public class MainController {
     }
 
     private void handleOfflineToggleAction() {
+        if (waitingForResponse) return;
         TranslateTransition transition = createTransition();
         boolean offlinemode = offlineToggleButton.isSelected();
         transition.setToX(offlinemode ? 19 : 0);
@@ -230,6 +231,7 @@ public class MainController {
     }
 
     public void addConversation(String name, UUID id) {
+        if (waitingForResponse) return;
         if (id == null) {
             Conversation newConversation = new Conversation(name);
             ConversationList.addConversation(newConversation);
@@ -412,6 +414,12 @@ public class MainController {
         messageBox.getChildren().add(messageLabel);
         chatBox.getChildren().add(messageBox);
 
+        System.out.println(waitingForResponse);
+        if (answer) {
+            waitingForResponse = false;
+            chatField.setText("");
+            chatField.setDisable(false);
+        }
         scrollChatPane();
     }
 
@@ -431,9 +439,6 @@ public class MainController {
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
             messageLabel.setStyle("-fx-background-color: transparent; -fx-border-width: 1.5; -fx-border-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
-            waitingForResponse = false;
-            chatField.setText("");
-            chatField.setDisable(false);
         } else {
             messageBox.setAlignment(Pos.CENTER_RIGHT);
             messageLabel.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-text-fill: black");
@@ -447,10 +452,12 @@ public class MainController {
         pause.play();
     }
 
-    private void logout(){
+    private void logout() {
+        if (waitingForResponse) return;
         Main.pageLoader.loadLoginPage();
     }
-    private void accountPage(){
+    private void accountPage() {
+        if (waitingForResponse) return;
         Main.pageLoader.loadAccountPage();
     }
 
@@ -516,6 +523,5 @@ public class MainController {
     public static void setOfflineMode(boolean offlineMode) {
         MainController.offlineMode = offlineMode;
     }
-
 
 }
