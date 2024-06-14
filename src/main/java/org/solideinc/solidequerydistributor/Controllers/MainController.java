@@ -80,7 +80,7 @@ public class MainController {
 
     private Conversation currentConversation;
 
-    private static boolean offlineMode = true;
+    private static boolean offlineMode;
 
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
 
@@ -125,6 +125,7 @@ public class MainController {
         hideChat();
 
         instance = this;
+        offlineMode = true;
     }
 
     public void setOnlineTooltip(){
@@ -159,17 +160,11 @@ public class MainController {
 
     private void handleOfflineToggleAction() {
         TranslateTransition transition = createTransition();
-        if (offlineToggleButton.isSelected()) {
-            transition.setToX(19);
-            setOfflineMode(false);
-            setOnlineTooltip();
-            connectionSymbol.setImage(connectionImage);
-        } else {
-            transition.setToX(0);
-            setOfflineMode(true);
-            setOfflineTooltip();
-            connectionSymbol.setImage(connectionNotImage);
-        }
+        boolean offlinemode = offlineToggleButton.isSelected();
+        transition.setToX(offlinemode ? 19 : 0);
+        setOfflineMode(!offlinemode);
+        setOnlineTooltip();
+        connectionSymbol.setImage(offlinemode ? connectionImage : connectionNotImage);
         transition.play();
     }
 
