@@ -478,6 +478,8 @@ public class MainController {
         toggleButton.setLayoutX(-5);
         chatPane.setPrefWidth(865);
         chatBox.setPrefWidth(858);
+        updateLanguageComboBox.setLayoutX(795);
+        conversationTitle.setPrefWidth(660);
     }
 
     private void showSidebar(){
@@ -490,6 +492,8 @@ public class MainController {
         toggleButton.setLayoutX(210);
         chatPane.setPrefWidth(615);
         chatBox.setPrefWidth(613);
+        updateLanguageComboBox.setLayoutX(552);
+        conversationTitle.setPrefWidth(417);
     }
 
     private void hideChat() {
