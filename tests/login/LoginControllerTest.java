@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.solideinc.solidequerydistributor.Controllers.LoginController;
 import org.solideinc.solidequerydistributor.Controllers.UserController;
 import org.solideinc.solidequerydistributor.Main;
+import org.solideinc.solidequerydistributor.Util.Observer;
 import org.solideinc.solidequerydistributor.Util.PageLoader;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -48,6 +49,10 @@ public class LoginControllerTest extends ApplicationTest {
         // Mock the pageLoader
         PageLoader mockPageLoader = Mockito.mock(PageLoader.class);
         Main.pageLoader = mockPageLoader;
+
+
+        loginController.usernameObserver = Mockito.mock(Observer.class);
+        loginController.passwordObserver = Mockito.mock(Observer.class);
 
 
 

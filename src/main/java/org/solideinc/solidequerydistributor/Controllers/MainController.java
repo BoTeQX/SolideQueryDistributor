@@ -152,6 +152,7 @@ public class MainController {
     }
 
     private void setupOfflineToggleButton() {
+        connectionSymbol.setImage(connectionNotImage);
         setOfflineTooltip();
         offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
     }
@@ -434,7 +435,7 @@ public class MainController {
 
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
-            messageLabel.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: transparent; -fx-border-width: 1.5; -fx-border-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
             waitingForResponse = false;
             chatField.setText("");
             chatField.setDisable(false);
