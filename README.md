@@ -34,10 +34,8 @@ Solide™ Query Distributor is a sophisticated AI assistant, Solide™- Assisten
    git clone https://github.com/your-organization/solide-query-distributor.git
     ```
 
-2. **Navigate to the Project Directory**
-   ```bash
-    cd solide-query-distributor
-   ```
+2. **Download Ollama dependency**
+   https://ollama.com/
 
 ## Usage
 
