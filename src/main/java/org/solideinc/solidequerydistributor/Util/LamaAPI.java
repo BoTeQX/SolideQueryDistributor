@@ -1,11 +1,14 @@
 package org.solideinc.solidequerydistributor.Util;
 
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI;
+import io.github.amithkoujalgi.ollama4j.core.OllamaStreamHandler;
 import io.github.amithkoujalgi.ollama4j.core.models.OllamaResult;
 import io.github.amithkoujalgi.ollama4j.core.types.OllamaModelType;
 import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder;
 import io.github.amithkoujalgi.ollama4j.core.exceptions.OllamaBaseException;
+import javafx.application.Platform;
 import org.solideinc.solidequerydistributor.Controllers.MainController;
+import org.solideinc.solidequerydistributor.Main;
 
 import java.io.IOException;
 
@@ -40,7 +43,12 @@ public class LamaAPI {
         if (ollamaAPI == null || !isConnected() || MainController.isOfflineMode())
             return "SERVER OFFLINE";
 
-        OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build());
+        OllamaStreamHandler streamHandler = (s) -> {
+            Platform.runLater(() -> MainController.getInstance().updateMessage(s));
+        };
+        OllamaResult result = ollamaAPI.generate(OllamaModelType.LLAMA3, prompt, new OptionsBuilder().build(), streamHandler);
+
+
         return result.getResponse();
     }
 }

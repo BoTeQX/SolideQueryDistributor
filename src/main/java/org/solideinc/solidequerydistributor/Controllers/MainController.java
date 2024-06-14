@@ -30,6 +30,7 @@ import java.util.concurrent.CompletableFuture;
 import javafx.scene.shape.Circle;
 
 public class MainController {
+    private static MainController instance;
     @FXML
     public Pane rootLayout;
     @FXML
@@ -43,8 +44,6 @@ public class MainController {
     @FXML
     private TextArea chatField;
     @FXML
-    private Button sendButton;
-    @FXML
     private ScrollPane chatPane;
     @FXML
     private Pane sidebar;
@@ -54,8 +53,6 @@ public class MainController {
     private Button toggleButton;
     @FXML
     private Button addNewButton;
-    @FXML
-    private Circle sendCircle;
     @FXML
     private VBox chatPages;
     @FXML
@@ -67,12 +64,15 @@ public class MainController {
     @FXML
     private Label conversationTitle;
 
+    private Label currentMessageLabel;
+
    Image connectionImage = new Image("/connectionImage.png");
 
     Image connectionNotImage = new Image("/connectionNotImage.png");
 
 
     private boolean waitingForResponse = false;
+    private boolean animatingText = false;
 
     private boolean isSidebarVisible = true;
 
@@ -80,12 +80,15 @@ public class MainController {
 
     private Conversation currentConversation;
 
-    private static boolean offlineMode = true;
+    private static boolean offlineMode;
 
     private final Tooltip offlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de offline modus. Klik om online te gaan.");
 
     private final Tooltip onlineTooltip = new Tooltip("De Solide™ - Assistent is momenteel in de online modus. Klik om offline te gaan.");
 
+    public static MainController getInstance() {
+        return instance;
+    }
     @FXML
     private void initialize() {
         updateLanguageComboBox.setOnAction(event -> updateLanguageSetting());
@@ -99,13 +102,6 @@ public class MainController {
         toggleButton.setOnAction(this::handleToggleAction);
 
         addNewButton.setOnAction(event -> addConversation("Nieuw gesprek", null));
-        sendButton.setOnAction(event -> {
-            try {
-                confirmPrompt();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
         chatField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && !event.isShiftDown()) {
@@ -123,17 +119,13 @@ public class MainController {
             addConversation(conversation.getConversationName(), conversation.getId());
         }
 
-        sendButton.setOnAction(event -> {
-            try {
-                confirmPrompt();
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        });
         SolideAPI.setPromptsBasedOnLanguagePreference();
         setupOfflineToggleButton();
 
         hideChat();
+
+        instance = this;
+        offlineMode = true;
     }
 
     public void setOnlineTooltip(){
@@ -161,23 +153,19 @@ public class MainController {
     }
 
     private void setupOfflineToggleButton() {
+        connectionSymbol.setImage(connectionNotImage);
         setOfflineTooltip();
         offlineToggleButton.setOnAction(event -> handleOfflineToggleAction());
     }
 
     private void handleOfflineToggleAction() {
+        if (waitingForResponse) return;
         TranslateTransition transition = createTransition();
-        if (offlineToggleButton.isSelected()) {
-            transition.setToX(19);
-            setOfflineMode(false);
-            setOnlineTooltip();
-            connectionSymbol.setImage(connectionImage);
-        } else {
-            transition.setToX(0);
-            setOfflineMode(true);
-            setOfflineTooltip();
-            connectionSymbol.setImage(connectionNotImage);
-        }
+        boolean offlinemode = offlineToggleButton.isSelected();
+        transition.setToX(offlinemode ? 19 : 0);
+        setOfflineMode(!offlinemode);
+        setOnlineTooltip();
+        connectionSymbol.setImage(offlinemode ? connectionImage : connectionNotImage);
         transition.play();
     }
 
@@ -243,6 +231,7 @@ public class MainController {
     }
 
     public void addConversation(String name, UUID id) {
+        if (waitingForResponse) return;
         if (id == null) {
             Conversation newConversation = new Conversation(name);
             ConversationList.addConversation(newConversation);
@@ -391,6 +380,20 @@ public class MainController {
         });
     }
 
+    public void updateMessage(String message) {
+        message = message.trim();
+        if (currentMessageLabel == null && !animatingText) {
+            animatingText = true;
+            currentMessageLabel = createMessageLabel(message);
+            HBox messageBox = createMessageBox(true, currentMessageLabel);
+            messageBox.getChildren().add(currentMessageLabel);
+            chatBox.getChildren().add(messageBox);
+        } else {
+            currentMessageLabel.setText(message);
+            scrollChatPane();
+        }
+    }
+
     private void addMessage(String text, boolean answer, boolean save) throws IOException {
         if (currentConversation == null) {
             System.out.println("No conversation selected");
@@ -399,6 +402,11 @@ public class MainController {
 
         text = text.trim();
         if (save) currentConversation.addMessage(text, answer);
+        if (currentMessageLabel != null) {
+            animatingText = false;
+            chatBox.getChildren().remove(chatBox.getChildren().size() - 1);
+            currentMessageLabel = null;
+        }
 
         Label messageLabel = createMessageLabel(text);
         HBox messageBox = createMessageBox(answer, messageLabel);
@@ -406,40 +414,34 @@ public class MainController {
         messageBox.getChildren().add(messageLabel);
         chatBox.getChildren().add(messageBox);
 
+        System.out.println(waitingForResponse);
+        if (answer) {
+            waitingForResponse = false;
+            chatField.setText("");
+            chatField.setDisable(false);
+        }
         scrollChatPane();
     }
 
     private Label createMessageLabel(String text) {
         Label messageLabel = new Label(text);
         messageLabel.setWrapText(true);
+        messageLabel.setMaxWidth(450);
+        messageLabel.setMinHeight(Region.USE_PREF_SIZE);
 
-        Text textNode = new Text(text);
-        Font newFont = new Font(messageLabel.getFont().getFamily(), 16);
-        textNode.setFont(newFont);
-        textNode.setWrappingWidth(300);
-        textNode.setTextOrigin(VPos.BASELINE);
-        textNode.setBoundsType(TextBoundsType.LOGICAL_VERTICAL_CENTER);
-
-        double textHeight = textNode.getLayoutBounds().getHeight();
-        messageLabel.setPrefHeight(textHeight + 20);
-        messageLabel.setMinHeight(textHeight + 20);
-        messageLabel.setMaxHeight(textHeight + 20);
         return messageLabel;
     }
 
     private HBox createMessageBox(boolean answer, Label messageLabel) {
-        HBox messageBox = new HBox();
-        messageBox.setPadding(new Insets(5, 5, 5, 5));
+        HBox messageBox = new HBox(5);
+        messageBox.setPadding(new Insets(5));
 
         if (answer) {
             messageBox.setAlignment(Pos.CENTER_LEFT);
-            messageLabel.setStyle("-fx-background-color: transparent; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
-            waitingForResponse = false;
-            chatField.setText("");
-            chatField.setDisable(false);
+            messageLabel.setStyle("-fx-background-color: transparent; -fx-border-width: 1.5; -fx-border-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
         } else {
             messageBox.setAlignment(Pos.CENTER_RIGHT);
-            messageLabel.setStyle("-fx-background-color: #41515c; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16");
+            messageLabel.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-size: 16; -fx-text-fill: black");
         }
         return messageBox;
     }
@@ -450,10 +452,12 @@ public class MainController {
         pause.play();
     }
 
-    private void logout(){
+    private void logout() {
+        if (waitingForResponse) return;
         Main.pageLoader.loadLoginPage();
     }
-    private void accountPage(){
+    private void accountPage() {
+        if (waitingForResponse) return;
         Main.pageLoader.loadAccountPage();
     }
 
@@ -470,36 +474,34 @@ public class MainController {
         sidebar.setPrefWidth(15);
         mainContent.setLayoutX(15);
         mainContent.setPrefWidth(900);
-        chatField.setPrefWidth(770);
-        sendButton.setLayoutX(820);
-        sendCircle.setLayoutX(850);
+        chatField.setPrefWidth(848);
         toggleButton.setText(">");
         toggleButton.setLayoutY(270);
         toggleButton.setLayoutX(-5);
-        chatPane.setPrefWidth(830);
-        chatBox.setPrefWidth(825);
+        chatPane.setPrefWidth(865);
+        chatBox.setPrefWidth(858);
+        updateLanguageComboBox.setLayoutX(795);
+        conversationTitle.setPrefWidth(660);
     }
 
     private void showSidebar(){
         sidebar.setPrefWidth(260);
         mainContent.setPrefWidth(640);
         mainContent.setLayoutX(260);
-        chatField.setPrefWidth(518);
-        sendButton.setLayoutX(562);
-        sendCircle.setLayoutX(591);
+        chatField.setPrefWidth(603);
         toggleButton.setText("<");
         toggleButton.setLayoutY(0);
         toggleButton.setLayoutX(210);
-        chatPane.setPrefWidth(587);
-        chatBox.setPrefWidth(583);
+        chatPane.setPrefWidth(615);
+        chatBox.setPrefWidth(613);
+        updateLanguageComboBox.setLayoutX(552);
+        conversationTitle.setPrefWidth(417);
     }
 
     private void hideChat() {
         chatPane.setVisible(false);
         chatField.setVisible(false);
         offlineToggleButton.setVisible(false);
-        sendButton.setVisible(false);
-        sendCircle.setVisible(false);
         updateLanguageComboBox.setVisible(false);
         connectionSymbol.setVisible(false);
         conversationTitle.setVisible(false);
@@ -509,8 +511,6 @@ public class MainController {
         chatPane.setVisible(true);
         chatField.setVisible(true);
         offlineToggleButton.setVisible(true);
-        sendButton.setVisible(true);
-        sendCircle.setVisible(true);
         updateLanguageComboBox.setVisible(true);
         connectionSymbol.setVisible(true);
         conversationTitle.setVisible(true);
@@ -523,6 +523,5 @@ public class MainController {
     public static void setOfflineMode(boolean offlineMode) {
         MainController.offlineMode = offlineMode;
     }
-
 
 }

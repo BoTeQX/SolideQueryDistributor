@@ -21,8 +21,8 @@ public class LoginController {
     @FXML
     public TextField loginPasswordPasswordField;
 
-    private Observer usernameObserver;
-    private Observer passwordObserver;
+    public Observer usernameObserver;
+    public Observer passwordObserver;
 
     @FXML
     private void initialize() {
